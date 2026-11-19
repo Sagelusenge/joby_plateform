@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-fixed":"#001847","on-error":"#ffffff","on-secondary-fixed-variant":"#004d67","surface-container-lowest":"#ffffff","primary-fixed":"#dae2ff","surface-container-highest":"#dfe3e8","on-secondary-container":"#004b65","surface-container-high":"#e5e8ed","on-surface-variant":"#424654","on-surface":"#181c20","on-primary-container":"#ced9ff","surface":"#f6f9fe","secondary-container":"#00c1fd","secondary-fixed":"#c2e8ff","tertiary-container":"#006d4a","surface-variant":"#dfe3e8","inverse-surface":"#2d3135","on-secondary-fixed":"#001e2b","background":"#f6f9fe","on-tertiary-fixed":"#002113","surface-bright":"#f6f9fe","on-error-container":"#93000a","on-primary":"#ffffff","outline":"#737785","surface-dim":"#d7dadf","primary-fixed-dim":"#b2c5ff","error-container":"#ffdad6","inverse-primary":"#b2c5ff","on-secondary":"#ffffff","surface-container-low":"#f1f4f9","secondary":"#006688","on-tertiary-container":"#65f2b5","outline-variant":"#c3c6d6","error":"#ba1a1a","tertiary-fixed":"#6ffbbe","on-primary-fixed-variant":"#0040a1","tertiary-fixed-dim":"#4edea3","tertiary":"#005237","secondary-fixed-dim":"#75d1ff","inverse-on-surface":"#eef1f6","surface-tint":"#0856cf","surface-container":"#ebeef3","primary":"#0041a2","on-tertiary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-background":"#181c20","primary-container":"#0b57d0"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-md":"1rem","space-xl":"2.5rem","margin-desktop":"2.5rem","space-lg":"1.5rem","margin":"1rem","space-xs":"0.25rem","gutter-desktop":"1.5rem","gutter":"1rem","space-sm":"0.5rem"},"fontFamily":{"body-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"]},"fontSize":{"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-lg-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-sm":["16px",{"lineHeight":"22px","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(11,87,208,0.05)]"><div class="h-20 max-w-[1280px] mx-auto px-margin lg:px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-headline-md font-extrabold shadow-[0_2px_8px_rgba(11,87,208,0.25)]">J</div><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-primary tracking-tight font-extrabold">Joby</span><span class="px-1.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm uppercase font-bold">RDC</span></div><span class="font-label-sm text-on-surface-variant hidden sm:inline">Trouvez. Vendez. Connectez.</span></div></div><div class="hidden md:flex items-center gap-1.5 px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer"><span class="material-symbols-outlined text-secondary text-[18px]">location_on</span><span class="font-label-md text-on-surface font-semibold">Goma, RDC</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">expand_more</span></div></div><div class="hidden lg:flex flex-1 max-w-md mx-space-sm"><div class="relative w-full flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest rounded-lg font-body-sm text-on-surface placeholder:text-outline outline-none ring-1 ring-outline-variant/60 focus:ring-2 focus:ring-primary shadow-sm transition-all" placeholder="Services, produits, emplois à Goma..." type="text"/></div></div><div class="flex items-center gap-space-sm"><a class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-md transition-all shadow-[0_2px_6px_rgba(0,109,74,0.25)] active:scale-95" data-path="creer-annonce" href="#"><span class="material-symbols-outlined text-[18px]">add_circle</span><span>Publier une annonce</span></a><div class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container-low font-label-sm text-on-surface-variant cursor-pointer hover:bg-surface-container transition-colors"><span class="font-bold text-on-surface">FR</span><span class="material-symbols-outlined text-[14px]">expand_more</span></div><a class="hidden xl:inline-flex items-center font-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-1.5 transition-colors" data-path="connexion" href="#">Connexion</a><a class="hidden xl:inline-flex items-center gap-1 font-label-sm text-secondary hover:text-primary px-2.5 py-1 rounded-md bg-secondary-fixed/50 hover:bg-secondary-fixed transition-colors font-semibold" data-path="tableau-de-bord" href="#"><span class="material-symbols-outlined text-[16px]">space_dashboard</span><span>Admin</span></a><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida/ALJJyrAzAj-3GqLMPmlUJnPF8M2xQN3-jC7Drrlp-rL23lyeLdA699a-URu6AgLp-hEGWS3q4edreNYpF-dOvXCGGNhKDW92OYZgL94gYzf3hoXHhQNNHHrvIJvuA0khM0t-shG7OusdQKKS-a7FX3ILh8wIIUm5edhpW1I0DYpID3uGtPogiy24A-Y-97ZKs72WA8vk57sHagBJSOZJH4aCEfjT3oN-Eo_gO53aSsmXNTkngX390FHKvKPTvhE"/></div></div></div><div class="bg-surface-container-lowest shadow-[0_1px_4px_rgba(0,0,0,0.03)] border-t border-outline-variant/20"><div class="max-w-[1280px] mx-auto px-margin lg:px-margin-desktop overflow-x-auto"><nav class="flex items-center gap-2 py-2 whitespace-nowrap min-w-max" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-lg"><a aria-current="page" class="px-3 py-1.5 transition-colors bg-primary-container text-on-primary font-semibold rounded-lg" data-path="accueil" href="#">Accueil</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="explorer-services" href="#">Explorer les Services</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="produits" href="#">Produits &amp; Ventes</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="annuaire-entreprises" href="#">Annuaire Entreprises</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="offres-emploi" href="#">Offres d'Emploi</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="promotions" href="#">Promotions &amp; Pub</a></nav></div></div></header><main class="w-full pt-32 bg-surface min-h-[calc(100vh-280px)]"><div class="flex flex-col w-full">
+<!-- Hero Section with Dynamic Kinetic Search & Local Identity -->
+<section class="relative w-full overflow-hidden bg-gradient-to-b from-primary-fixed/20 via-surface to-surface pb-space-xl">
+<!-- Atmospheric background glow & local contour shapes -->
+<div class="absolute -top-24 -left-20 w-96 h-96 rounded-full bg-secondary-container/15 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
+<div class="max-w-[1280px] mx-auto px-margin lg:px-margin-desktop pt-6 lg:pt-10">
+<!-- Top Tagline & Micro Pill -->
+<div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-lowest shadow-sm mb-4">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-tertiary-container animate-pulse"></span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Le Hub Commercial du Nord-Kivu • Goma Direct</span>
+</div>
+<h1 class="font-display-lg text-on-surface text-balance mb-3">
+          Trouvez. Vendez. <span class="text-primary bg-clip-text">Connectez.</span>
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl text-balance mb-8">
+          La première plateforme locale certifiée à Goma. Échangez instantanément avec des artisans de confiance, dénichez des biens vérifiés et accédez aux opportunités du Kivu en direct sur WhatsApp.
+        </p>
+<!-- Intelligent Multi-Category Search Container -->
+<div class="w-full max-w-3xl bg-surface-container-lowest rounded-2xl shadow-xl p-3 sm:p-4 mb-6">
+<form class="flex flex-col md:flex-row items-stretch gap-2.5" onsubmit="event.preventDefault();">
+<!-- Query Field -->
+<div class="flex-[1.5] flex items-center gap-2.5 px-3.5 py-3 rounded-xl bg-surface-container-low focus-within:bg-surface-container-lowest focus-within:shadow-inner transition-all">
+<span class="material-symbols-outlined text-primary text-[22px]">search</span>
+<div class="flex flex-col w-full text-left">
+<span class="font-label-sm text-outline text-[10px] leading-tight">Que recherchez-vous ?</span>
+<input class="bg-transparent border-0 outline-none font-body-md text-on-surface placeholder:text-outline w-full p-0 font-medium" placeholder="Ex: Électricien Katindo, RAV4, Studio Himbi..." type="text"/>
+</div>
+</div>
+<!-- Quarter / District Selector -->
+<div class="flex-1 flex items-center gap-2 px-3.5 py-3 rounded-xl bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-secondary text-[20px]">location_on</span>
+<div class="flex flex-col w-full text-left">
+<span class="font-label-sm text-outline text-[10px] leading-tight">Quartier de Goma</span>
+<select class="bg-transparent border-0 outline-none font-body-sm text-on-surface cursor-pointer w-full p-0 font-semibold">
+<option value="all">Tous les quartiers</option>
+<option value="himbi">Himbi I &amp; II</option>
+<option value="katindo">Katindo</option>
+<option value="les-volcans">Les Volcans</option>
+<option value="birere">Birere Commercial</option>
+<option value="kyeshero">Kyeshero</option>
+<option value="karisimbi">Karisimbi / Virunga</option>
+<option value="mabanga">Mabanga Sud / Nord</option>
+<option value="ndosho">Ndosho</option>
+</select>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="px-6 py-3.5 rounded-xl bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-headline-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span>Chercher</span>
+</button>
+</form>
+<!-- Quick Filters Pills -->
+<div class="flex items-center gap-2 pt-3 mt-2 overflow-x-auto no-scrollbar">
+<span class="font-label-sm text-outline uppercase tracking-wider shrink-0 mr-1">Filtres rapides:</span>
+<a class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high hover:bg-primary-fixed font-label-sm text-on-surface transition-colors shrink-0" href="#">
+<span class="material-symbols-outlined text-[14px] text-primary">plumbing</span>
+              Plombiers &amp; Artisans
+            </a>
+<a class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high hover:bg-primary-fixed font-label-sm text-on-surface transition-colors shrink-0" href="#">
+<span class="material-symbols-outlined text-[14px] text-secondary">apartment</span>
+              Immobilier &amp; Parcelles
+            </a>
+<a class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high hover:bg-primary-fixed font-label-sm text-on-surface transition-colors shrink-0" href="#">
+<span class="material-symbols-outlined text-[14px] text-tertiary">work</span>
+              Emplois ONG &amp; Tech
+            </a>
+<a class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high hover:bg-primary-fixed font-label-sm text-on-surface transition-colors shrink-0" href="#">
+<span class="material-symbols-outlined text-[14px] text-primary">directions_car</span>
+              Véhicules 4x4
+            </a>
+</div>
+</div>
+<!-- Trust Badges & Verified Stats Counter Strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 w-full max-w-4xl pt-2">
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest/80 shadow-sm backdrop-blur-sm">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">storefront</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-on-surface font-extrabold leading-none">+1,240</span>
+<span class="font-label-sm text-on-surface-variant mt-0.5">Annonces actives</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest/80 shadow-sm backdrop-blur-sm">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/15 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[22px]">verified_user</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-on-surface font-extrabold leading-none">350+</span>
+<span class="font-label-sm text-on-surface-variant mt-0.5">Entreprises certifiées</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest/80 shadow-sm backdrop-blur-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[22px]">forum</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-on-surface font-extrabold leading-none">98%</span>
+<span class="font-label-sm text-on-surface-variant mt-0.5">Contact via WhatsApp</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest/80 shadow-sm backdrop-blur-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">security</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-on-surface font-extrabold leading-none">100%</span>
+<span class="font-label-sm text-on-surface-variant mt-0.5">Modération locale</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4 Pillars Core Category Cards -->
+<section class="w-full max-w-[1280px] mx-auto px-margin lg:px-margin-desktop py-space-lg">
+<div class="flex items-end justify-between mb-space-md">
+<div>
+<span class="font-label-sm text-secondary uppercase font-bold tracking-wider">Explorer Joby</span>
+<h2 class="font-headline-lg text-on-surface">Les 4 Grandes Catégories du Marché</h2>
+</div>
+<a class="hidden sm:inline-flex items-center gap-1 font-label-md text-primary font-bold hover:underline" data-path="explorer-services" href="#">
+<span>Tout explorer</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Category 1 -->
+<a class="group relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-path="explorer-services" href="#">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">handyman</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm">480 pros</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors">Services &amp; Artisans</h3>
+<p class="font-body-sm text-on-surface-variant mt-1">Plomberie, électricité, dépannage solaire, traiteurs, mécaniciens certifiés à Goma.</p>
+</div>
+<div class="mt-4 pt-3 flex items-center text-primary font-label-sm font-semibold gap-1">
+<span>Trouver un prestataire</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Category 2 -->
+<a class="group relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-path="produits" href="#">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">shopping_bag</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm">340 articles</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-secondary transition-colors">Produits &amp; Marché Local</h3>
+<p class="font-body-sm text-on-surface-variant mt-1">Smartphones, électroménager, motos, pièces détachées et mode en direct des boutiques.</p>
+</div>
+<div class="mt-4 pt-3 flex items-center text-secondary font-label-sm font-semibold gap-1">
+<span>Voir les offres</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Category 3 -->
+<a class="group relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-path="annuaire-entreprises" href="#">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">domain</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm">350 fiches</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-tertiary transition-colors">Annuaire des Entreprises</h3>
+<p class="font-body-sm text-on-surface-variant mt-1">Hôtels au bord du Lac Kivu, cliniques privées, agences de transport, ONG et banques.</p>
+</div>
+<div class="mt-4 pt-3 flex items-center text-tertiary font-label-sm font-semibold gap-1">
+<span>Consulter le répertoire</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Category 4 -->
+<a class="group relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-path="offres-emploi" href="#">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-on-primary-container/30 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">badge</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm">75 postes</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors">Emplois &amp; Missions</h3>
+<p class="font-body-sm text-on-surface-variant mt-1">Appels d'offres, postes humanitaires, consultants ICT et missions d'urgence au Kivu.</p>
+</div>
+<div class="mt-4 pt-3 flex items-center text-primary font-label-sm font-semibold gap-1">
+<span>Postuler maintenant</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+</div>
+</section>
+<!-- Featured & Sponsored Listings Feed -->
+<section class="w-full max-w-[1280px] mx-auto px-margin lg:px-margin-desktop py-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">stars</span>
+<span class="font-label-sm text-secondary uppercase font-bold tracking-wider">Sélection Prioritaire</span>
+</div>
+<h2 class="font-headline-lg text-on-surface">Annonces à la Une &amp; Offres Vérifiées</h2>
+</div>
+<!-- Filter tabs -->
+<div class="flex items-center gap-1.5 p-1 rounded-xl bg-surface-container-high overflow-x-auto">
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md shadow-sm font-bold">Tous</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md">Artisans</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md">Véhicules</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md">Immobilier</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Listing Card 1: Artisans/Services -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-48 w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Un technicien électricien professionnel congolais souriant en uniforme de travail avec équipement d'outillage moderne devant des panneaux solaires et batteries dans un atelier moderne à Goma, lumière naturelle douce, tons bleus professionnels et clairs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8K5Sa7aqdKWwWXVLpm-26cJSbWTufDXQ_ty-JZQ3wibVW1NhF9ps9fpfwK93CUub7WOsxVgDR4IaJxsvynTCHLa9-wfnmdEX4DLY--WdKn0AE5OnVFraxafT5x8fiIjEq9LVqRERrmhwjhS5QxKd7nA1OluODEsMNmzvuAONdoFevuAEEZidqnuyWjVoElfqg7G4rjRYl3Hc0Qwh5SrxnM134EsxjDHHWFHVQ3sk"/>
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm font-bold shadow-sm">SPONSORISÉ</span>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary font-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span> Vérifié
+            </span>
+</div>
+<div class="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm">
+            Goma • Himbi
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-secondary font-bold uppercase">Installation • Solaire &amp; Domestique</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-amber-500 text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span> (42)
+              </div>
+</div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors line-clamp-1">
+              Électricité Solaire Pro &amp; Dépannage Rapide
+            </h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Installation systèmes hybrides Victron, dépannage groupes électrogènes et câblage certifié normes RDC à Goma.
+            </p>
+</div>
+<div class="pt-4 mt-3">
+<div class="flex items-baseline justify-between mb-3">
+<div>
+<span class="font-headline-md text-primary font-extrabold">35 $</span>
+<span class="font-label-sm text-on-surface-variant"> / intervention</span>
+</div>
+<span class="font-body-sm text-outline font-medium">~98,000 FC</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all" href="https://wa.me/243970000000?text=Bonjour,%20vu%20sur%20Joby%20RDC" target="_blank">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>WhatsApp</span>
+</a>
+<a class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed font-label-sm font-semibold transition-all" href="tel:+243970000000">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Appeler</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Listing Card 2: Vehicles/Products -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-48 w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Un véhicule 4x4 tout-terrain Toyota Land Cruiser propre et bien entretenu garé devant un bâtiment moderne à Goma près du rond-point Rutshuru avec ciel dégagé et mont Nyiragongo en arrière-plan flou" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-l9v5BnL2UoseIs7kJisBK2Bl2XCFPDN_GKAYNJx4H1NHU-YRfoexqXYo8_yhAsqIshurE93_YMkS93nk6DLOhcMg4C99MTbD4Uj3cJ-3SrA1cJud4ahyoymcygRGzwtOJ6ImYkvlBKRRe-ZcjaoRe09uqCuPvKYNJcWngUIVX1jyDTjWk_pEWkwgeFiuXD-6WpbcnhZCRNgoUUjHvd5d7y8wYq7RCxQtZPIYLjI"/>
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm font-bold shadow-sm">SPONSORISÉ</span>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary font-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span> Vérifié
+            </span>
+</div>
+<div class="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm">
+            Goma • Les Volcans
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-secondary font-bold uppercase">Automobile • Location &amp; Vente</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-amber-500 text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">5.0</span> (18)
+              </div>
+</div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors line-clamp-1">
+              Toyota Land Cruiser Prado TXL 2021
+            </h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Immatriculation RDC en règle, climatisée, disponible avec ou sans chauffeur pour missions Bukavu et Rutshuru.
+            </p>
+</div>
+<div class="pt-4 mt-3">
+<div class="flex items-baseline justify-between mb-3">
+<div>
+<span class="font-headline-md text-primary font-extrabold">120 $</span>
+<span class="font-label-sm text-on-surface-variant"> / jour</span>
+</div>
+<span class="font-body-sm text-outline font-medium">Ou 34,500 $ vente</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all" href="https://wa.me/243970000000?text=Bonjour,%20je%20suis%20intéressé%20par%20le%20Prado" target="_blank">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>WhatsApp</span>
+</a>
+<a class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed font-label-sm font-semibold transition-all" href="tel:+243970000000">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Appeler</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Listing Card 3: Real Estate -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-48 w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Maison contemporaine avec terrasse en pierre de lave volcanique noire taillée typique de Goma, jardin tropical verdoyant, vue panoramique sur les collines du Kivu, ciel lumineux d'après-midi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3pXv-79dG20FuCJyb3n-rJ0nro6QrLdi6DnYhP4BDcgAGbjWjTSc4YncbL3DL5vxj3Q1bg1X8_d4YbJniomFsvIJ_Xq6FbKDG7MxjYG1Hy4NYibNfFYFkN0JXEZz8EDLNlYno0SQHCT0TqVZXMXcmnzV8WVLic9IP8OgfaEly-4sfSZfPZ2GjQGzfCFsYeCJlnw-nwUOrq31Mlci0d8RcLDWWvyMnkuF3UR5DzGk"/>
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm font-bold shadow-sm">RÉCENT</span>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary font-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span> Titre Foncier
+            </span>
+</div>
+<div class="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm">
+            Goma • Kyeshero Lac
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-secondary font-bold uppercase">Immobilier • Villa à Louer</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-amber-500 text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.8</span> (12)
+              </div>
+</div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors line-clamp-1">
+              Villa 4 Chambres Clôturée Vue Lac Kivu
+            </h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Eau REGIDESO permanente avec citerne 10,000L, groupe électrogène de secours, quartier sécurisé pour expatriés &amp; cadres.
+            </p>
+</div>
+<div class="pt-4 mt-3">
+<div class="flex items-baseline justify-between mb-3">
+<div>
+<span class="font-headline-md text-primary font-extrabold">850 $</span>
+<span class="font-label-sm text-on-surface-variant"> / mois</span>
+</div>
+<span class="font-body-sm text-outline font-medium">Bail flexible</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all" href="https://wa.me/243970000000?text=Bonjour,%20je%20souhaite%20visiter%20la%20villa%20Kyeshero" target="_blank">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>WhatsApp</span>
+</a>
+<a class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed font-label-sm font-semibold transition-all" href="tel:+243970000000">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Appeler</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- More Action Link -->
+<div class="text-center mt-space-lg">
+<a class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-lg transition-all" data-path="produits" href="#">
+<span>Explorer plus de 1,200 annonces à Goma</span>
+<span class="material-symbols-outlined text-[20px]">east</span>
+</a>
+</div>
+</section>
+<!-- Featured Local Enterprises & Verified Businesses -->
+<section class="w-full bg-surface-container-low py-space-xl">
+<div class="max-w-[1280px] mx-auto px-margin lg:px-margin-desktop">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg gap-2">
+<div>
+<span class="font-label-sm text-primary uppercase font-bold tracking-wider">Écosystème Économique</span>
+<h2 class="font-headline-lg text-on-surface">Entreprises Locales en Vedette</h2>
+<p class="font-body-md text-on-surface-variant mt-1">Sociétés, cabinets, restaurants et hôtels certifiés au Registre du Commerce de Goma.</p>
+</div>
+<a class="inline-flex items-center gap-1 font-label-md text-primary font-bold hover:underline" data-path="annuaire-entreprises" href="#">
+<span>Ouvrir l'annuaire complet</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Company Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-start gap-3 mb-3">
+<div class="w-14 h-14 rounded-xl bg-primary-fixed text-primary flex items-center justify-center font-headline-md font-extrabold shrink-0 shadow-inner">
+                GLT
+              </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-on-surface truncate">Great Lakes Tech Hub</h3>
+<span class="material-symbols-outlined text-primary text-[18px]" title="Entreprise Vérifiée">verified</span>
+</div>
+<span class="font-label-sm text-secondary font-semibold block">Services Numériques &amp; Fibre</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm mt-0.5">
+<span class="material-symbols-outlined text-amber-500 text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+<span>(64 avis clients)</span>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-3">
+              Déploiement réseau, vente de serveurs et solutions logicielles d'entreprise pour ONG et PME au Nord-Kivu.
+            </p>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm bg-surface-container py-1.5 px-2.5 rounded-lg mb-4">
+<span class="material-symbols-outlined text-outline text-[16px]">location_on</span>
+<span class="truncate">Av. Bunagana, Quartier Katindo, Goma</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<a class="flex-1 text-center py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm font-semibold transition-colors" href="#">
+              Voir la fiche
+            </a>
+<a class="px-3 py-2 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all flex items-center justify-center" href="https://wa.me/243970000000" target="_blank">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</a>
+</div>
+</div>
+<!-- Company Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-start gap-3 mb-3">
+<div class="w-14 h-14 rounded-xl bg-secondary-fixed text-secondary flex items-center justify-center font-headline-md font-extrabold shrink-0 shadow-inner">
+                KLH
+              </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-on-surface truncate">Kivu Lake Hotel &amp; Resort</h3>
+<span class="material-symbols-outlined text-primary text-[18px]" title="Entreprise Vérifiée">verified</span>
+</div>
+<span class="font-label-sm text-secondary font-semibold block">Hôtellerie • Événements</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm mt-0.5">
+<span class="material-symbols-outlined text-amber-500 text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.7</span>
+<span>(112 avis clients)</span>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-3">
+              Chambres avec vue imprenable sur le lac, salles de conférences climatisées et restaurant gastronomique local.
+            </p>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm bg-surface-container py-1.5 px-2.5 rounded-lg mb-4">
+<span class="material-symbols-outlined text-outline text-[16px]">location_on</span>
+<span class="truncate">Boulevard Kanyamuhanga, Les Volcans, Goma</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<a class="flex-1 text-center py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm font-semibold transition-colors" href="#">
+              Voir la fiche
+            </a>
+<a class="px-3 py-2 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all flex items-center justify-center" href="https://wa.me/243970000000" target="_blank">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</a>
+</div>
+</div>
+<!-- Company Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-start gap-3 mb-3">
+<div class="w-14 h-14 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center font-headline-md font-extrabold shrink-0 shadow-inner">
+                VMC
+              </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-on-surface truncate">Virunga Motors Congo</h3>
+<span class="material-symbols-outlined text-primary text-[18px]" title="Entreprise Vérifiée">verified</span>
+</div>
+<span class="font-label-sm text-secondary font-semibold block">Garage Pro • Pièces d'Origine</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm mt-0.5">
+<span class="material-symbols-outlined text-amber-500 text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.8</span>
+<span>(89 avis clients)</span>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-3">
+              Diagnostic électronique automobile, révision 4x4 tout-terrain et importation directe de pièces du Japon.
+            </p>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm bg-surface-container py-1.5 px-2.5 rounded-lg mb-4">
+<span class="material-symbols-outlined text-outline text-[16px]">location_on</span>
+<span class="truncate">Carrefour Birere, Commune de Karisimbi, Goma</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<a class="flex-1 text-center py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm font-semibold transition-colors" href="#">
+              Voir la fiche
+            </a>
+<a class="px-3 py-2 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all flex items-center justify-center" href="https://wa.me/243970000000" target="_blank">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Map / Goma Districts Guide -->
+<section class="w-full max-w-[1280px] mx-auto px-margin lg:px-margin-desktop py-space-xl">
+<div class="bg-surface-container-lowest rounded-3xl p-space-md lg:p-space-xl shadow-sm flex flex-col lg:flex-row gap-space-lg items-center">
+<div class="flex-1 flex flex-col gap-space-sm">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-label-sm font-bold w-fit">
+<span class="material-symbols-outlined text-[16px]">map</span>
+<span>Cartographie de Goma</span>
+</div>
+<h2 class="font-headline-lg text-on-surface">
+          Trouvez instantanément dans votre quartier
+        </h2>
+<p class="font-body-md text-on-surface-variant">
+          Que vous soyez à Himbi pour des services résidentiels, à Birere pour les affaires et le commerce de gros, ou à Kyeshero pour le logement au bord de l'eau, Joby filtre vos résultats par proximité directe.
+        </p>
+<!-- District badges selector -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
+<div class="p-2.5 rounded-xl bg-surface-container hover:bg-primary-fixed cursor-pointer transition-colors">
+<span class="font-label-md text-on-surface font-bold block">Himbi I &amp; II</span>
+<span class="font-label-sm text-outline">184 annonces</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container hover:bg-primary-fixed cursor-pointer transition-colors">
+<span class="font-label-md text-on-surface font-bold block">Les Volcans</span>
+<span class="font-label-sm text-outline">210 commerces</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container hover:bg-primary-fixed cursor-pointer transition-colors">
+<span class="font-label-md text-on-surface font-bold block">Birere</span>
+<span class="font-label-sm text-outline">390 marchands</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container hover:bg-primary-fixed cursor-pointer transition-colors">
+<span class="font-label-md text-on-surface font-bold block">Katindo</span>
+<span class="font-label-sm text-outline">125 prestataires</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container hover:bg-primary-fixed cursor-pointer transition-colors">
+<span class="font-label-md text-on-surface font-bold block">Kyeshero</span>
+<span class="font-label-sm text-outline">98 logements</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container hover:bg-primary-fixed cursor-pointer transition-colors">
+<span class="font-label-md text-on-surface font-bold block">Ndosho &amp; Virunga</span>
+<span class="font-label-sm text-outline">142 opportunités</span>
+</div>
+</div>
+</div>
+<!-- Map View with data-location attribute -->
+<div class="w-full lg:w-[480px] h-[340px] rounded-2xl overflow-hidden shadow-md relative">
+<div class="w-full h-full bg-cover bg-center" data-location="Goma, Nord-Kivu, Democratic Republic of the Congo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdVMn6fllnXJlUVpoZT1lkM9AnNyenqls01WHvYc_OyXUlg3xN4Q7kPddg2G4bN5XWOH3plT_RZSWo9t_auKhTjY8k0ChDD4IGYQ54e302EOLdNQijeouDCX77Ji_UUXXGSFT332fjBqTSdeUHSc5IasRFh4mf-gF-GdIJDXMOeimTpocmYndSGkRARF3G-A1BKZRRfP9iLjCEgA8CIbzvRQ7TX6HAe8Rn5wvPwGc')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex flex-col justify-end p-space-md text-on-primary">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary-container">explore</span>
+<span class="font-headline-sm font-bold">Goma Métropole</span>
+</div>
+<p class="font-body-sm text-on-primary-container">
+              Vue interactive des zones commerciales • Nord-Kivu, RDC
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Merchant CTA Callout Banner -->
+<section class="w-full max-w-[1280px] mx-auto px-margin lg:px-margin-desktop py-space-lg">
+<div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-on-primary-fixed-variant to-secondary p-space-lg lg:p-space-xl text-on-primary shadow-xl">
+<!-- Decorative background wave / contour -->
+<div class="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-secondary-container/20 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-space-lg">
+<div class="max-w-2xl text-center lg:text-left">
+<span class="px-3 py-1 rounded-full bg-surface-container-lowest/20 backdrop-blur-sm text-on-primary font-label-sm uppercase font-bold tracking-wider inline-block mb-3">
+            Espace Professionnels &amp; Vendeurs
+          </span>
+<h2 class="font-headline-lg lg:text-display-lg font-extrabold text-on-primary leading-tight mb-2">
+            Vous êtes prestataire ou commerçant à Goma ?
+          </h2>
+<p class="font-body-lg text-primary-fixed leading-relaxed">
+            Publiez gratuitement vos annonces aujourd'hui et activez le badge <strong class="text-white">Vérifié</strong> pour rassurer vos clients et doubler vos contacts WhatsApp.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+<a class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-surface-container-lowest text-primary hover:bg-surface-container-low font-headline-sm font-bold shadow-lg text-center transition-all active:scale-95 flex items-center justify-center gap-2" data-path="creer-annonce" href="#">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Publier mon annonce</span>
+</a>
+<a class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-on-primary/10 hover:bg-on-primary/20 text-on-primary border-0 font-headline-sm font-semibold backdrop-blur-sm text-center transition-all flex items-center justify-center gap-2" data-path="promotions" href="#">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+<span>Options Boost</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Local Testimonials & Community Trust -->
+<section class="w-full max-w-[1280px] mx-auto px-margin lg:px-margin-desktop py-space-xl">
+<div class="text-center max-w-2xl mx-auto mb-space-lg">
+<span class="font-label-sm text-secondary uppercase font-bold tracking-wider">Avis de la Communauté</span>
+<h2 class="font-headline-lg text-on-surface">Ils font bouger l'économie de Goma sur Joby</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Testimonial 1 -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-amber-500 mb-3">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface italic mb-4">
+            « Dès la première semaine de publication de mon annonce pour mes kits solaires, j'ai reçu 14 messages directs sur WhatsApp. Les clients de Goma ont confiance grâce au badge Vérifié. »
+          </p>
+</div>
+<div class="flex items-center gap-3 pt-3">
+<img class="w-11 h-11 rounded-full object-cover shadow-sm" data-alt="Portrait professionnel d'un jeune entrepreneur congolais souriant et dynamique portant une chemise bleue dans son magasin d'électronique moderne à Goma" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKR4IOKJtJYII9LD2ljRtkvUUSbKrNZ3fFqJ2EooRFoH2ROjYaGhnToABcSVFt3nKfTQl3a39nVHY3rwNYpU2OHdFMICC2qzVGuPBbkmPN1uJDVIQgP-Km4plb0X7d9rnDhRZFjFf7Fxv5Y_s7gCo3O5p-3_LLcueu50xmxyhoTCFiS0ieN5TPLN-i32dhvOYJZcQF5oHHpDeMjpjzlDLMaaDaXWuWhOJSwJGDpgg"/>
+<div>
+<span class="font-headline-sm text-on-surface block text-[15px]">Pacifique M.</span>
+<span class="font-body-sm text-on-surface-variant">Directeur Kivu-Energie, Katindo</span>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-amber-500 mb-3">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface italic mb-4">
+            « Pour notre ONG, nous cherchions un mécanicien poids-lourd en urgence à Karisimbi un dimanche. Sur Joby, contact direct en 3 minutes et intervention réglée. Simple et rapide ! »
+          </p>
+</div>
+<div class="flex items-center gap-3 pt-3">
+<img class="w-11 h-11 rounded-full object-cover shadow-sm" data-alt="Portrait d'une logisticienne humanitaire congolaise professionnelle avec un carnet de bord souriante dans un bureau moderne avec vue sur la ville de Goma" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp-5Zs1pWY8NDMW4rPDt9zgS3Nhxu4VTL1j2OHB5Ll8RiBticbY8s3GjW8Y7MRO9qLlNq60t_fMN7nWescNRPTcRKvtSa_Zq5PY1jSiXsp_ZucYOi8-HoM7IdlebdSfhH2rLnFp5krONuPVK-kcQbjbzDsdIyHzmR3VcjVjQfEYhAgc41o9UE9lsOIg_JmWSxqvNBI1ye00erSSvMDv2xpTagdADCW6D7TSOXsp80"/>
+<div>
+<span class="font-headline-sm text-on-surface block text-[15px]">Aline Kahindo</span>
+<span class="font-body-sm text-on-surface-variant">Coordinatrice Logistique, Goma</span>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-amber-500 mb-3">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface italic mb-4">
+            « J'ai loué mon appartement à Kyeshero sans passer par des intermédiaires douteux. L'acheteur a vérifié mon titre foncier et nous avons conclu la transaction en direct. »
+          </p>
+</div>
+<div class="flex items-center gap-3 pt-3">
+<img class="w-11 h-11 rounded-full object-cover shadow-sm" data-alt="Portrait bienveillant d'un propriétaire d'immeuble congolais élégant en costume léger à Goma, lumière chaleureuse du coucher de soleil sur le lac Kivu" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXgu2Yd33qHsO1Qx_KP3FCB2oU1vuXWxW-YsmFb8TxojJ_HrrTdFm9Kz1bSpcSo_0TNjJlN4UC2NzsvWjHfB4xYnhN_RCfBRyK0GKb68N6coCndHX2qIp9-Y70ZjRwbhanjICTzvLtR_qaZwb9AuBTYe9SirwrMEKWAS5UUgLEvmxO-UeSmoSGpkRZ9QKGY1446ag0CdyVFj00H4KVw-VXdEXechLggqVkdNdEoho"/>
+<div>
+<span class="font-headline-sm text-on-surface block text-[15px]">Dieudonné Birindwa</span>
+<span class="font-body-sm text-on-surface-variant">Propriétaire Immobilier, Kyeshero</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Mobile Quick Post Pill (Thumb-Zone Friendly) -->
+<div class="fixed bottom-6 right-6 z-40 sm:hidden">
+<a class="flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-on-primary font-headline-sm shadow-xl active:scale-95 transition-transform" data-path="creer-annonce" href="#">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Publier</span>
+</a>
+</div>
+</div></main><footer class="w-full bg-surface-container-lowest shadow-[0_-2px_12px_rgba(11,87,208,0.03)] mt-space-xl"><div class="max-w-[1280px] mx-auto px-margin lg:px-margin-desktop py-space-xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-lg mb-space-xl"><div class="lg:col-span-2 flex flex-col gap-space-sm pr-space-md"><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-headline-sm font-extrabold">J</div><span class="font-headline-md text-primary font-extrabold tracking-tight">Joby RDC</span></div><p class="font-body-md text-on-surface-variant mt-space-xs leading-relaxed">Le carrefour digital de référence à Goma et dans la région des Grands Lacs. Boostez votre visibilité commerciale, achetez, recrutez et concluez des opportunités locales en direct par WhatsApp et appel certifié.</p><div class="flex flex-wrap items-center gap-space-sm mt-space-sm"><div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary/10 text-tertiary font-label-sm font-semibold"><span class="material-symbols-outlined text-[16px]">verified</span><span>Opérateur agréé RDC</span></div><div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-label-sm font-semibold"><span class="material-symbols-outlined text-[16px]">public</span><span>Hub Économique Kivu</span></div></div></div><div><h4 class="font-headline-sm text-on-surface font-bold mb-space-md">Catégories Clés</h4><ul class="flex flex-col gap-2 font-body-sm text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="explorer-services" href="#">Prestations &amp; Services</a><a class="hover:text-primary transition-colors" data-path="produits" href="#">Vente de Produits</a><a class="hover:text-primary transition-colors" data-path="offres-emploi" href="#">Emplois &amp; Stages Goma</a><a class="hover:text-primary transition-colors" data-path="annuaire-entreprises" href="#">Fiches Entreprises Pro</a><a class="hover:text-primary transition-colors" data-path="promotions" href="#">Deals &amp; Bonnes Affaires</a></ul></div><div><h4 class="font-headline-sm text-on-surface font-bold mb-space-md">Villes &amp; Territoires</h4><ul class="flex flex-col gap-2 font-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" href="#">Goma (Nord-Kivu)</a></li><li><a class="hover:text-primary transition-colors" href="#">Bukavu (Sud-Kivu)</a></li><li><a class="hover:text-primary transition-colors" href="#">Beni &amp; Butembo</a></li><li><a class="hover:text-primary transition-colors" href="#">Kinshasa Métropole</a></li><li><a class="hover:text-primary transition-colors" href="#">Lubumbashi</a></li></ul></div><div><h4 class="font-headline-sm text-on-surface font-bold mb-space-md">Assistance &amp; Contact</h4><div class="flex flex-col gap-space-sm"><a class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container font-body-sm text-tertiary transition-colors font-semibold" href="#"><span class="material-symbols-outlined text-[18px]">chat</span><span>WhatsApp: +243 970 000 000</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container font-body-sm text-primary transition-colors font-semibold" href="#"><span class="material-symbols-outlined text-[18px]">call</span><span>Support Client Goma</span></a><div class="mt-space-xs font-body-sm text-on-surface-variant"><p>Quartier Les Volcans, Av. du Rond-Point</p><p class="mt-0.5">Goma, République Démocratique du Congo</p></div></div></div></div><div class="pt-space-lg border-t border-outline-variant/30 flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-wrap items-center gap-space-md font-body-sm text-on-surface-variant"><p>© 2025 Joby RDC. Tous droits réservés.</p><a class="hover:text-on-surface transition-colors" href="#">Conditions d'utilisation</a><a class="hover:text-on-surface transition-colors" href="#">Confidentialité</a><a class="hover:text-on-surface transition-colors" href="#">Sécurité &amp; Signalement</a></div><div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm"><span class="material-symbols-outlined text-secondary text-[16px]">favorite</span><span>Fièrement conçu pour l'Afrique et la RDC</span></div></div></div></footer></body></html>

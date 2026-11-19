@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-fixed":"#001847","on-error":"#ffffff","on-secondary-fixed-variant":"#004d67","surface-container-lowest":"#ffffff","primary-fixed":"#dae2ff","surface-container-highest":"#dfe3e8","on-secondary-container":"#004b65","surface-container-high":"#e5e8ed","on-surface-variant":"#424654","on-surface":"#181c20","on-primary-container":"#ced9ff","surface":"#f6f9fe","secondary-container":"#00c1fd","secondary-fixed":"#c2e8ff","tertiary-container":"#006d4a","surface-variant":"#dfe3e8","inverse-surface":"#2d3135","on-secondary-fixed":"#001e2b","background":"#f6f9fe","on-tertiary-fixed":"#002113","surface-bright":"#f6f9fe","on-error-container":"#93000a","on-primary":"#ffffff","outline":"#737785","surface-dim":"#d7dadf","primary-fixed-dim":"#b2c5ff","error-container":"#ffdad6","inverse-primary":"#b2c5ff","on-secondary":"#ffffff","surface-container-low":"#f1f4f9","secondary":"#006688","on-tertiary-container":"#65f2b5","outline-variant":"#c3c6d6","error":"#ba1a1a","tertiary-fixed":"#6ffbbe","on-primary-fixed-variant":"#0040a1","tertiary-fixed-dim":"#4edea3","tertiary":"#005237","secondary-fixed-dim":"#75d1ff","inverse-on-surface":"#eef1f6","surface-tint":"#0856cf","surface-container":"#ebeef3","primary":"#0041a2","on-tertiary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-background":"#181c20","primary-container":"#0b57d0"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-md":"1rem","space-xl":"2.5rem","margin-desktop":"2.5rem","space-lg":"1.5rem","margin":"1rem","space-xs":"0.25rem","gutter-desktop":"1.5rem","gutter":"1rem","space-sm":"0.5rem"},"fontFamily":{"body-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"]},"fontSize":{"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-lg-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-sm":["16px",{"lineHeight":"22px","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col shadow-[2px_0_12px_rgba(11,87,208,0.04)]"><div class="h-16 px-space-md flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-headline-sm font-extrabold">J</div><span class="font-headline-sm text-primary font-bold tracking-tight">Joby Console</span></div><span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm font-bold uppercase">Admin</span></div><div class="p-space-md"><div class="px-3 py-2 rounded-lg bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-label-md text-on-surface font-semibold">Hub: Goma</span></div><span class="font-label-sm text-on-surface-variant">Actif</span></div></div><nav class="flex-1 px-space-sm space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary font-semibold"><a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors bg-primary-container text-on-primary font-semibold" data-path="tableau-de-bord" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Vue d'ensemble</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="gestion-annonces" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span>Gestion Annonces</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="validation-entreprises" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span>Validation Entreprises</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="offres-et-candidatures" href="#"><span class="material-symbols-outlined text-[20px]">work</span><span>Emplois &amp; Candidatures</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="campagnes-publicitaires" href="#"><span class="material-symbols-outlined text-[20px]">campaign</span><span>Promotions &amp; Sponsoring</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md transition-colors" data-path="utilisateurs" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span>Comptes &amp; Vendeurs</span></a></nav><div class="p-space-sm border-t border-outline-variant/20"><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md transition-colors" data-path="accueil" href="#"><span class="material-symbols-outlined text-[18px]">storefront</span><span>Retour au site public</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(11,87,208,0.04)] z-40 flex items-center justify-between px-space-md"><div class="flex items-center gap-space-sm"><span class="font-label-md text-on-surface-variant">Espace Opérationnel Régional :</span><span class="font-label-md text-primary font-bold">Nord-Kivu / Goma</span></div><div class="flex items-center gap-space-md"><a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-sm font-semibold transition-all shadow-sm" data-path="creer-annonce" href="#"><span class="material-symbols-outlined text-[16px]">add</span><span>Nouvelle publication</span></a><div class="flex items-center gap-space-sm pl-space-sm border-l border-outline-variant/30"><div class="flex flex-col text-right hidden sm:block"><span class="font-label-sm text-on-surface font-bold leading-tight">Admin Joby Goma</span><span class="font-body-sm text-outline leading-tight">Superviseur</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida/ALJJyrAzAj-3GqLMPmlUJnPF8M2xQN3-jC7Drrlp-rL23lyeLdA699a-URu6AgLp-hEGWS3q4edreNYpF-dOvXCGGNhKDW92OYZgL94gYzf3hoXHhQNNHHrvIJvuA0khM0t-shG7OusdQKKS-a7FX3ILh8wIIUm5edhpW1I0DYpID3uGtPogiy24A-Y-97ZKs72WA8vk57sHagBJSOZJH4aCEfjT3oN-Eo_gO53aSsmXNTkngX390FHKvKPTvhE"/></div></div></header><main class="relative pt-16 bg-surface px-space-md py-space-md w-full"><div class="flex flex-col w-full">
+<div class="space-y-space-lg max-w-[1400px] mx-auto w-full">
+<!-- Top Command Strip: Live Operational Pulse & Scope Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-md relative overflow-hidden group">
+<span class="material-symbols-outlined text-[26px]">insights</span>
+<div class="absolute inset-0 bg-secondary-container/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-md text-on-surface font-extrabold tracking-tight">Supervision Marché &amp; Flux</h1>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/10 text-tertiary font-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+              Live Synchro
+            </span>
+</div>
+<p class="font-body-sm text-outline">Plateforme Joby • Console Centrale de Modération Économique</p>
+</div>
+</div>
+<!-- Scope Filters & Time Range -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button class="px-3 py-1.5 rounded font-label-md font-bold bg-surface-container-lowest text-primary shadow-xs transition-all">Aujourd'hui</button>
+<button class="px-3 py-1.5 rounded font-label-md text-on-surface-variant hover:text-on-surface transition-all">7 Jours</button>
+<button class="px-3 py-1.5 rounded font-label-md text-on-surface-variant hover:text-on-surface transition-all">Ce Mois</button>
+</div>
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-low font-label-md text-on-surface hover:bg-surface-container transition-all" id="scopeSelector">
+<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+<span class="font-bold">Goma (Nord-Kivu)</span>
+<span class="material-symbols-outlined text-[16px] text-outline">keyboard_arrow_down</span>
+</button>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-primary transition-colors" title="Rafraîchir les métriques">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+</div>
+</div>
+<!-- 4 High-Impact KPI Blocks -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1: Active Listings -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-primary/5 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md font-semibold text-outline uppercase tracking-wider">Annonces Actives</span>
+<div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="font-display-lg text-on-surface font-extrabold tracking-tight">1,842</div>
+<div class="flex items-center gap-1 font-label-sm text-tertiary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-bold">+18.4%</span>
+<span class="text-outline font-normal">vs mois précédent</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-outline border-t border-surface-container-high/40">
+<span>78% Goma Urbain</span>
+<span class="font-bold text-primary">Biens &amp; Techs</span>
+</div>
+</div>
+<!-- KPI 2: Awaiting Moderation -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-error/5 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md font-semibold text-outline uppercase tracking-wider">Modération Urgente</span>
+<div class="w-9 h-9 rounded-lg bg-error-container text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">pending_actions</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-error font-extrabold tracking-tight">37</span>
+<span class="font-label-sm font-bold text-error bg-error-container px-2 py-0.5 rounded-full">File active</span>
+</div>
+<p class="font-body-sm text-outline">Temps moyen d'attente: <strong class="text-on-surface">14 min</strong></p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-outline border-t border-surface-container-high/40">
+<span class="text-error font-semibold">12 prioritaires (Urgent)</span>
+<span class="text-on-surface-variant">SLA: 98%</span>
+</div>
+</div>
+<!-- KPI 3: Verified Businesses -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-secondary-container/10 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md font-semibold text-outline uppercase tracking-wider">Pros &amp; Entreprises</span>
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="font-display-lg text-on-surface font-extrabold tracking-tight">412</div>
+<div class="flex items-center gap-1 font-label-sm text-tertiary">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span class="font-bold">+29</span>
+<span class="text-outline font-normal">nouvelles adhésions</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-outline border-t border-surface-container-high/40">
+<span>Taux de confiance: 96.2%</span>
+<span class="text-secondary font-bold">RCCM Validés</span>
+</div>
+</div>
+<!-- KPI 4: Sponsoring & Ads Revenue -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-tertiary-container/10 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md font-semibold text-outline uppercase tracking-wider">Revenus Visibilité</span>
+<div class="w-9 h-9 rounded-lg bg-tertiary-container/20 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-baseline gap-1">
+<span class="font-display-lg text-on-surface font-extrabold tracking-tight">$3,450</span>
+<span class="font-label-md text-outline font-bold">USD</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-tertiary">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span class="font-bold">+24.8%</span>
+<span class="text-outline font-normal">M-Pesa &amp; Airtel Money</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-outline border-t border-surface-container-high/40">
+<span>86 Boosts vendus</span>
+<span class="font-bold text-tertiary">14 Bannières</span>
+</div>
+</div>
+</div>
+<!-- Analytics & Heat Activity Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Activity Curve: Direct Contact Conversions & Posts -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-on-surface font-bold">Volume des Publications vs Connexions Directes</h2>
+<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-primary-fixed text-on-primary-fixed">30 Jours</span>
+</div>
+<p class="font-body-sm text-outline">Interactions directes via WhatsApp Business et appels téléphoniques locaux à Goma</p>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-sm text-on-surface">Publications</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-on-surface">Clics WhatsApp/Appels</span>
+</div>
+</div>
+</div>
+<!-- Custom Crisp Visual Chart (Inline SVG) -->
+<div class="w-full h-56 relative flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 700 200">
+<defs>
+<lineargradient id="primaryArea" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0041a2" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#0041a2" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="secondaryArea" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#00c1fd" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#00c1fd" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#ebeef3" stroke-dasharray="4" stroke-width="1" x1="0" x2="700" y1="40" y2="40"></line>
+<line stroke="#ebeef3" stroke-dasharray="4" stroke-width="1" x1="0" x2="700" y1="90" y2="90"></line>
+<line stroke="#ebeef3" stroke-dasharray="4" stroke-width="1" x1="0" x2="700" y1="140" y2="140"></line>
+<line stroke="#dfe3e8" stroke-width="1" x1="0" x2="700" y1="190" y2="190"></line>
+<!-- Area & Line for Publications (Primary) -->
+<path d="M 0,160 Q 70,140 140,120 T 280,110 T 420,70 T 560,95 T 700,50 L 700,190 L 0,190 Z" fill="url(#primaryArea)"></path>
+<path d="M 0,160 Q 70,140 140,120 T 280,110 T 420,70 T 560,95 T 700,50" fill="none" stroke="#0041a2" stroke-width="3"></path>
+<!-- Area & Line for WhatsApp/Call Actions (Cyan) -->
+<path d="M 0,180 Q 70,165 140,140 T 280,125 T 420,50 T 560,40 T 700,20 L 700,190 L 0,190 Z" fill="url(#secondaryArea)"></path>
+<path d="M 0,180 Q 70,165 140,140 T 280,125 T 420,50 T 560,40 T 700,20" fill="none" stroke="#00c1fd" stroke-width="2.5"></path>
+<!-- Metric Focal Dots -->
+<circle class="animate-pulse" cx="420" cy="50" fill="#00c1fd" r="5"></circle>
+<circle cx="700" cy="20" fill="#0041a2" r="6"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center text-outline font-label-sm pt-space-xs">
+<span>01 Fév (Himbi)</span>
+<span>08 Fév (Karisimbi)</span>
+<span>15 Fév (Mikeno)</span>
+<span>22 Fév (Katindo)</span>
+<span class="font-bold text-primary">Aujourd'hui (Pic: 1,420 clics)</span>
+</div>
+</div>
+<!-- Quick Operational Distribution Donut & Regional breakdown -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<h2 class="font-headline-sm text-on-surface font-bold">Répartition par Quartier</h2>
+<span class="material-symbols-outlined text-outline text-[18px]">share_location</span>
+</div>
+<p class="font-body-sm text-outline mb-space-md">Origine des flux commerciaux actifs à Goma</p>
+<div class="space-y-space-sm">
+<div>
+<div class="flex justify-between font-label-md mb-1">
+<span class="font-bold text-on-surface">Goma Centre / Les Volcans</span>
+<span class="text-primary font-extrabold">42%</span>
+</div>
+<div class="h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 42%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md mb-1">
+<span class="font-bold text-on-surface">Himbi &amp; Katindo</span>
+<span class="text-secondary font-extrabold">26%</span>
+</div>
+<div class="h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 26%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md mb-1">
+<span class="font-bold text-on-surface">Majengo &amp; Mabanga</span>
+<span class="text-secondary-container font-extrabold">19%</span>
+</div>
+<div class="h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 19%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md mb-1">
+<span class="font-bold text-on-surface">Kyeshero &amp; Ndosho</span>
+<span class="text-outline font-extrabold">13%</span>
+</div>
+<div class="h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 13%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-md border-t border-surface-container-high/40 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified_user</span>
+<span class="font-label-sm text-on-surface font-semibold">Fiabilité des contacts</span>
+</div>
+<span class="font-label-sm font-bold text-tertiary bg-tertiary-container/10 px-2 py-0.5 rounded">98.1% Sim valide</span>
+</div>
+</div>
+</div>
+<!-- Main Workspace: Moderation Queue & Community Side Panel -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-space-md items-start">
+<!-- Moderation Table (2 Columns on Desktop) -->
+<div class="xl:col-span-2 bg-surface-container-lowest rounded-xl shadow-sm p-space-md space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-on-surface font-bold">Modération Immédiate des Annonces</h2>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm font-bold">37 à traiter</span>
+</div>
+<p class="font-body-sm text-outline">Vérification de conformité, photos réelles et authenticité des numéros</p>
+</div>
+<!-- Quick Filters inside Table Header -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 sm:pb-0">
+<button class="px-3 py-1 rounded-lg font-label-sm font-bold bg-primary text-on-primary">Tous (37)</button>
+<button class="px-3 py-1 rounded-lg font-label-sm font-semibold bg-surface-container-low text-on-surface hover:bg-surface-container">Biens (18)</button>
+<button class="px-3 py-1 rounded-lg font-label-sm font-semibold bg-surface-container-low text-on-surface hover:bg-surface-container">Emplois (11)</button>
+<button class="px-3 py-1 rounded-lg font-label-sm font-semibold bg-surface-container-low text-on-surface hover:bg-surface-container">Services (8)</button>
+</div>
+</div>
+<!-- Data Listings Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-outline font-label-sm uppercase tracking-wider">
+<th class="py-3 px-3 rounded-l-lg">Annonce</th>
+<th class="py-3 px-3">Catégorie</th>
+<th class="py-3 px-3">Vendeur &amp; Contact</th>
+<th class="py-3 px-3">Prix</th>
+<th class="py-3 px-3">Statut</th>
+<th class="py-3 px-3 rounded-r-lg text-right">Actions Directes</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/60 font-body-sm" id="moderationTableBody">
+<!-- Row 1: Toyota Land Cruiser -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-3 px-3">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-surface-container" data-alt="Clear professional daylight photography of a dark silver Toyota Land Cruiser Prado parked in front of an upscale commercial residence in Goma Kivu, bright sunny day, modern automotive marketplace shot, photorealistic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQWqZB7xtZ2wZpUQdwciF1sv8bWuOqkbKr4cjEzst85k2JvZvlxR15TTS653otKyXM9OGqdfjU5cyd7p2CgS_KkfYLqtPP4RGzGXe2ezeF_YFJnXldHFpehzYeSVualNYvUO5m5OqSDo6MYC3SoAqwLZ9Nh0Hr7PJWeYSGWx_22cR7L6PuTmu3udi1DCiPUOJV8HMj9_rEveCR4CwK-f-TDO8fAtM2IIdmJg_yPdU"/>
+<div class="min-w-0 max-w-[200px]">
+<div class="font-label-md font-bold text-on-surface truncate group-hover:text-primary transition-colors">Toyota Prado TXL 2021</div>
+<div class="font-body-sm text-outline truncate">Quartier Les Volcans • Immatriculé IT</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary-fixed/50 text-on-primary-fixed font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">directions_car</span>
+                    Véhicule
+                  </span>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-sm font-bold text-on-surface flex items-center gap-1">
+                    Kasereka Auto
+                    <span class="material-symbols-outlined text-primary text-[14px]" title="Vendeur Vérifié">verified</span>
+</div>
+<div class="font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">chat</span>
+                    +243 997 410 882
+                  </div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-md font-bold text-on-surface">$42,500</span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+                    En attente
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-lg bg-tertiary-container/10 text-tertiary hover:bg-tertiary-container hover:text-on-tertiary transition-all" title="Valider l'annonce">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="p-1.5 rounded-lg bg-error-container/20 text-error hover:bg-error hover:text-on-error transition-all" title="Rejeter avec motif">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" title="Inspecter les photos">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Offre d'emploi Comptable -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-3 px-3">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-surface-container" data-alt="Modern corporate office setting in Goma with an African woman accountant reviewing financial ledgers and spreadsheets on a high-end laptop, bright professional corporate lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCczuJe0B6NhTApxoNowgI0UONskppbKyt--kqLVRdzbVMZc9eNb9wM5idesuEydKkf4DU2gfSvO_1U3FFrbaOAnQ5VVeHv9uw9NHgq9zQ3Z4EiO2kj9p_GbcgrLeJzVVaUwkNt2zViNhPH-0CCOYSk1nQBpetvg3hg4qMqZlSC1nzNLryl78IYxH-VZtUgMh3Ja4C3Vk59nAx5ZKJ-KV7k1SY66rdBZ2Pt9bx_M2w"/>
+<div class="min-w-0 max-w-[200px]">
+<div class="font-label-md font-bold text-on-surface truncate group-hover:text-primary transition-colors">Comptable Senior Bilingue</div>
+<div class="font-body-sm text-outline truncate">ONG Internationale • Himbi</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">work</span>
+                    Emploi CDD
+                  </span>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-sm font-bold text-on-surface">Kivu Logistics Hub</div>
+<div class="font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">mail</span>
+                    rh@kivulog.cd
+                  </div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-md font-bold text-on-surface">$1,200<span class="font-normal text-outline text-[11px]">/m</span></span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+                    En attente
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-lg bg-tertiary-container/10 text-tertiary hover:bg-tertiary-container hover:text-on-tertiary transition-all" title="Valider">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="p-1.5 rounded-lg bg-error-container/20 text-error hover:bg-error hover:text-on-error transition-all" title="Rejeter">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" title="Détails">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Appartement Meublé -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-3 px-3">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-surface-container" data-alt="Chic modern furnished living room apartment with large windows overlooking Lake Kivu shoreline, clean modern African contemporary furniture, serene morning daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUO59-melamp-7JwbJgrcnHtSTeVR6ZTSROVd_g7lcHqlPgfqzOWwyGFIU3DdDeiOkpWUfRXbtVwO7aPD6tOyR_kAR8QzNG-AX5MOFpBqrsaHPtox5NePWqw_4LRIU1mv0uKMrJ2S__3tCaZVFd-sff6f-_2-eeMdiBAJCJ1Fw4N7elKjbgjkSaRJR7oa6mJIs3CfIdttHgngpudeoSPDoaYW_PAeMhVBG20kyXvk"/>
+<div class="min-w-0 max-w-[200px]">
+<div class="font-label-md font-bold text-on-surface truncate group-hover:text-primary transition-colors">Appartement 3 Pièces Vue Lac</div>
+<div class="font-body-sm text-outline truncate">Goma Ouest • Proche Serena</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">apartment</span>
+                    Immobilier
+                  </span>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-sm font-bold text-on-surface flex items-center gap-1">
+                    Agence Kiv'Immo
+                    <span class="material-symbols-outlined text-primary text-[14px]">verified</span>
+</div>
+<div class="font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">chat</span>
+                    +243 812 900 114
+                  </div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-md font-bold text-on-surface">$850<span class="font-normal text-outline text-[11px]">/m</span></span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+                    En attente
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-lg bg-tertiary-container/10 text-tertiary hover:bg-tertiary-container hover:text-on-tertiary transition-all" title="Valider">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="p-1.5 rounded-lg bg-error-container/20 text-error hover:bg-error hover:text-on-error transition-all" title="Rejeter">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" title="Détails">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Panneaux Solaires & Batteries -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-3 px-3">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-surface-container" data-alt="High quality solar power inverter and lithium battery storage system installed neatly in a modern eco-friendly store in Goma Congo, clean technical equipment display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFk_KYoFLihJhrdh3B0TtSNPZGiF1Bh7eYUCYeZccSAhgwEqXaE8AIAUrh5X9B1t367pVOLOckv2oZeC7R-3UwbhLXHgnI9h_5zZp0OGaX40YPhjqOhzgpiV1AqouOKePO5yXEU_TgHla9WSpZl6FGCs-R7s82zIjoB6byQ6J8LwZ6k7RY0TGFbhrwV93fdFDLHJlGnOYqpbflm1RMMsUFmrsJpF-lGEuEVgnHi_o"/>
+<div class="min-w-0 max-w-[200px]">
+<div class="font-label-md font-bold text-on-surface truncate group-hover:text-primary transition-colors">Kit Solaire Hybride 5KVA</div>
+<div class="font-body-sm text-outline truncate">Garantie 2 Ans • Magasin Katindo</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary-fixed/50 text-on-primary-fixed font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+                    Énergie &amp; Tech
+                  </span>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-sm font-bold text-on-surface">Solux Goma SARL</div>
+<div class="font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">call</span>
+                    +243 970 334 009
+                  </div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-md font-bold text-on-surface">$2,100</span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+                    En attente
+                  </span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-lg bg-tertiary-container/10 text-tertiary hover:bg-tertiary-container hover:text-on-tertiary transition-all" title="Valider">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="p-1.5 rounded-lg bg-error-container/20 text-error hover:bg-error hover:text-on-error transition-all" title="Rejeter">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" title="Détails">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs border-t border-surface-container-high/40">
+<span class="font-body-sm text-outline">Affichage de 4 sur 37 annonces en attente de modération</span>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low font-label-sm text-on-surface-variant hover:bg-surface-container transition-colors disabled:opacity-50">Précédent</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary font-label-sm font-bold text-on-primary hover:bg-primary/90 transition-all shadow-xs">Suivant</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Sponsoring Requests & Community Signalement Alerts -->
+<div class="space-y-space-md">
+<!-- Module 1: Sponsoring & Badges "Boost" en Attente de Paiement -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">rocket_launch</span>
+<h3 class="font-headline-sm text-on-surface font-bold">Demandes de Sponsoring</h3>
+</div>
+<span class="px-2 py-0.5 rounded font-label-sm font-bold bg-secondary-fixed text-on-secondary-fixed">4 Paiements</span>
+</div>
+<p class="font-body-sm text-outline mb-space-md">Validations manuelles des bordereaux et transactions Mobile Money</p>
+<div class="space-y-space-sm">
+<!-- Boost Item 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md font-bold text-on-surface">Hôtel Serena Goma</span>
+<span class="font-label-sm font-extrabold text-tertiary bg-tertiary-container/10 px-2 py-0.5 rounded">$45 USD</span>
+</div>
+<div class="flex items-center justify-between text-outline font-body-sm">
+<span>Badge VIP Top Liste • 14 Jours</span>
+<span class="font-label-sm text-primary font-bold">Airtel Money</span>
+</div>
+<div class="mt-2 flex items-center justify-between pt-2 border-t border-surface-container-high/40">
+<span class="font-label-sm text-outline">Réf: #TX-984420-CD</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 rounded bg-tertiary font-label-sm font-bold text-on-tertiary">Activer</button>
+<button class="px-2 py-1 rounded bg-surface-container-high font-label-sm text-outline">Voir Reçu</button>
+</div>
+</div>
+</div>
+<!-- Boost Item 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md font-bold text-on-surface">Kivu Tech Electronics</span>
+<span class="font-label-sm font-extrabold text-tertiary bg-tertiary-container/10 px-2 py-0.5 rounded">$20 USD</span>
+</div>
+<div class="flex items-center justify-between text-outline font-body-sm">
+<span>Bannière Flash Accueil • 7 Jours</span>
+<span class="font-label-sm text-primary font-bold">M-Pesa Vodacom</span>
+</div>
+<div class="mt-2 flex items-center justify-between pt-2 border-t border-surface-container-high/40">
+<span class="font-label-sm text-outline">Réf: #MP-772911-GK</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 rounded bg-tertiary font-label-sm font-bold text-on-tertiary">Activer</button>
+<button class="px-2 py-1 rounded bg-surface-container-high font-label-sm text-outline">Voir Reçu</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Module 2: Signalements Communautaires Critiques -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]">report</span>
+<h3 class="font-headline-sm text-on-surface font-bold">Signalements Usagers</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm font-bold">3 Alertes</span>
+</div>
+<p class="font-body-sm text-outline mb-space-md">Avis de suspicion d'escroquerie ou doublons de faux profils</p>
+<div class="space-y-space-sm">
+<div class="p-space-sm rounded-lg bg-error-container/20 border-l-4 border-error space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm font-bold text-error uppercase">Suspicion Faux Acompte</span>
+<span class="font-label-sm text-outline">Il y a 32m</span>
+</div>
+<p class="font-body-sm text-on-surface font-semibold">"Maison à louer 50$ - Birere"</p>
+<p class="font-body-sm text-outline text-[12px]">L'utilisateur réclame un acompte avant toute visite sur place.</p>
+<div class="pt-2 flex items-center justify-end gap-2">
+<button class="px-2 py-1 rounded font-label-sm font-bold bg-error text-on-error hover:bg-error/90">Bloquer Vendeur</button>
+<button class="px-2 py-1 rounded font-label-sm bg-surface-container-lowest text-on-surface">Inspecter</button>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm font-bold text-outline uppercase">Doublon Suspect</span>
+<span class="font-label-sm text-outline">Il y a 2h</span>
+</div>
+<p class="font-body-sm text-on-surface font-semibold">"iPhone 14 Pro Max neuf à 200$"</p>
+<p class="font-body-sm text-outline text-[12px]">Prix manifestement irréaliste par rapport au cours du marché à Goma.</p>
+<div class="pt-2 flex items-center justify-end gap-2">
+<button class="px-2 py-1 rounded font-label-sm font-bold bg-error text-on-error">Retirer</button>
+<button class="px-2 py-1 rounded font-label-sm bg-surface-container-high text-on-surface">Contacter Vendeur</button>
+</div>
+</div>
+</div>
+</div>
+<!-- System Health Widget -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/15 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">cell_tower</span>
+</div>
+<div>
+<div class="font-label-md font-bold text-on-surface">Passerelle WhatsApp Joby</div>
+<div class="font-body-sm text-tertiary font-semibold">Opérationnel • 100% Délivré</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
