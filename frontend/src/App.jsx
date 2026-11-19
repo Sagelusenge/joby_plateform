@@ -3,6 +3,8 @@ import {
   ArrowRight,
   BriefcaseBusiness,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Download,
   Edit3,
   Eye,
@@ -40,6 +42,7 @@ const moduleFields = {
   districts: ['city_id', 'name'],
   plans: ['name', 'price', 'currency', 'duration_days', 'active'],
   campaigns: ['advertiser_id', 'title', 'image_url', 'target_url', 'placement', 'status', 'starts_at', 'ends_at'],
+  home_banners: ['title', 'description', 'image_url', 'cta_label', 'target_url', 'sort_order', 'active'],
   pages: ['slug', 'title', 'body', 'published'],
   announcements: ['title', 'body', 'published'],
   users: ['role', 'status'],
@@ -61,6 +64,7 @@ const adminLabels = {
   campaigns: 'Publicités',
   payments: 'Paiements',
   reports: 'Signalements',
+  home_banners: 'Bannières d’accueil',
   pages: 'Pages du site',
   announcements: 'Communiqués',
   messages: 'Messages',
@@ -82,6 +86,7 @@ const fieldLabels = {
   country: 'Pays',
   created_at: 'Créé le',
   currency: 'Devise',
+  cta_label: 'Texte du bouton',
   description: 'Description',
   details: 'Détails',
   district_id: 'Commune',
@@ -91,6 +96,9 @@ const fieldLabels = {
   featured_until: 'Mis en avant jusqu’au',
   id: 'ID',
   image_url: 'URL de l’image',
+  action: 'Action',
+  entity: 'Élément',
+  entity_id: 'N° élément',
   impressions: 'Impressions',
   listing_id: 'Annonce',
   method: 'Mode de paiement',
@@ -112,6 +120,8 @@ const fieldLabels = {
   starts_at: 'Date de début',
   status: 'Statut',
   subject: 'Objet',
+  sort_order: 'Ordre d’affichage',
+  target_url: 'Lien du bouton',
   title: 'Titre',
   total: 'Total',
   total_views: 'Vues',
@@ -174,6 +184,15 @@ const moduleCreateFields = {
     { name: 'reason', label: 'Motif', required: true, minLength: 3 },
     { name: 'details', label: 'Détails', type: 'textarea' },
   ],
+  home_banners: [
+    { name: 'title', label: 'Titre', required: true, minLength: 3 },
+    { name: 'description', label: 'Texte', type: 'textarea', required: true, minLength: 10 },
+    { name: 'image_url', label: 'URL de l’image (facultatif)' },
+    { name: 'cta_label', label: 'Texte du bouton', defaultValue: 'Découvrir', required: true },
+    { name: 'target_url', label: 'Lien du bouton (URL ou chemin interne)' },
+    { name: 'sort_order', label: 'Ordre d’affichage', type: 'number', min: 0, defaultValue: 0 },
+    { name: 'active', label: 'Activer la bannière', type: 'select', options: [{ value: 'true', label: 'Oui' }, { value: 'false', label: 'Non' }] },
+  ],
 };
 
 function App() {
@@ -184,6 +203,9 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
   const [plans, setPlans] = useState([]);
+  const [banners, setBanners] = useState([]);
+  const [bannerIndex, setBannerIndex] = useState(0);
+  const [carouselPaused, setCarouselPaused] = useState(false);
   const [mine, setMine] = useState([]);
   const [promos, setPromos] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -204,6 +226,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const [recentAudit, setRecentAudit] = useState([]);
   const [edit, setEdit] = useState(null);
+  const [adminImageFile, setAdminImageFile] = useState(null);
   const [sideOpen, setSideOpen] = useState(false);
 
   const request = async (path, options = {}) => {
@@ -237,13 +260,26 @@ function App() {
     request('/categories').then(setCategories).catch(report);
     request('/cities').then(setCities).catch(report);
     request('/plans').then(setPlans).catch(report);
+    request('/banners').then((items) => {
+      setBanners(items);
+      setBannerIndex(0);
+    }).catch(report);
   }, []);
+
+  useEffect(() => {
+    if (carouselPaused || banners.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const timer = window.setInterval(() => {
+      setBannerIndex((index) => (index + 1) % banners.length);
+    }, 6500);
+    return () => window.clearInterval(timer);
+  }, [banners.length, carouselPaused]);
 
   const loadAdmin = async (tab) => {
     setAdminTab(tab);
     setEdit(null);
     setSelectedAdmin(null);
     setAdminRows([]);
+    setAdminImageFile(null);
     try {
       if (tab === 'stats') {
         setStats(await request('/admin/stats'));
@@ -441,6 +477,12 @@ function App() {
         data.price = data.price === '' ? null : data.price;
         data.image_urls = [];
       }
+      if (adminTab === 'home_banners' && adminImageFile) {
+        const formData = new FormData();
+        formData.append('images', adminImageFile);
+        const uploaded = await request('/my/uploads', { method: 'POST', body: formData });
+        data.image_url = uploaded.image_urls[0];
+      }
 
       const createEndpoints = {
         listings: '/admin/listings',
@@ -457,6 +499,7 @@ function App() {
         body: JSON.stringify(data),
       });
       setEdit(null);
+      setAdminImageFile(null);
       await loadAdmin(adminTab);
       setNotice(edit?.id ? 'Modifications enregistrées.' : 'Élément ajouté.');
     } catch (exception) {
@@ -584,10 +627,15 @@ function App() {
     );
   };
 
-  const canCreate = ['listings', 'users', 'promotions', 'payments', 'reports'].includes(adminTab)
+  const canCreate = ['listings', 'users', 'promotions', 'payments', 'reports', 'home_banners'].includes(adminTab)
     || (moduleFields[adminTab] && !['users', 'payments', 'promotions', 'reports', 'messages'].includes(adminTab));
-  const canDelete = ['categories', 'cities', 'districts', 'plans', 'campaigns', 'pages', 'announcements'].includes(adminTab);
+  const canDelete = ['categories', 'cities', 'districts', 'plans', 'campaigns', 'pages', 'announcements', 'home_banners'].includes(adminTab);
   const createFields = moduleCreateFields[adminTab] || moduleFields[adminTab] || [];
+  const adminColumns = adminTab === 'audit'
+    ? ['id', 'actor', 'action', 'entity', 'description', 'created_at']
+    : adminTab === 'home_banners'
+      ? ['id', 'title', 'active', 'sort_order', 'description', 'image_url']
+    : Object.keys(adminRows[0] || {}).slice(0, 7);
   const cards = [
     { key: 'service', icon: BriefcaseBusiness },
     { key: 'product', icon: ShoppingBag },
@@ -600,9 +648,9 @@ function App() {
     <>
       <header className="topbar">
         <div className="container header">
-          <button className="brand" aria-label="Retour à l’accueil Joby" onClick={() => navigate('home')}>
+          <a className="brand" href="/" aria-label="Retour à l’accueil Joby" onClick={(event) => { event.preventDefault(); navigate('home'); }}>
             <span className="brand-logo" role="img" aria-label="Logo Joby" />
-          </button>
+          </a>
           <nav className={sideOpen ? 'open' : ''}>
             <button onClick={() => navigate('home')}>Accueil</button>
             <button onClick={() => { navigate('home'); setType('service'); }}>Services</button>
@@ -633,6 +681,51 @@ function App() {
 
       {screen === 'home' && (
         <>
+          {banners.length > 0 && (
+            <section
+              className="home-carousel"
+              aria-roledescription="carrousel"
+              aria-label="Bannières de la page d’accueil"
+              onMouseEnter={() => setCarouselPaused(true)}
+              onMouseLeave={() => setCarouselPaused(false)}
+              onFocusCapture={() => setCarouselPaused(true)}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false);
+              }}
+            >
+              {(() => {
+                const banner = banners[bannerIndex] || banners[0];
+                const external = /^https?:\/\//i.test(banner.target_url || '');
+                return (
+                  <article className="home-banner" key={banner.id} aria-live="polite">
+                    {banner.image_url && <img className="home-banner-image" src={banner.image_url} alt="" />}
+                    <div className="home-banner-shade" />
+                    <div className="home-banner-content container">
+                      <span className="kicker">JOBY · LES OPPORTUNITÉS PRÈS DE CHEZ VOUS</span>
+                      <h2>{banner.title}</h2>
+                      <p>{banner.description}</p>
+                      {banner.target_url && (
+                        <a className="button white" href={banner.target_url} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>
+                          {banner.cta_label || 'Découvrir'} <ArrowRight size={17} />
+                        </a>
+                      )}
+                    </div>
+                    {banners.length > 1 && (
+                      <div className="home-carousel-controls">
+                        <button className="carousel-arrow" aria-label="Bannière précédente" onClick={() => setBannerIndex((bannerIndex - 1 + banners.length) % banners.length)}><ChevronLeft size={20} /></button>
+                        <div className="carousel-dots" aria-label="Choisir une bannière">
+                          {banners.map((item, index) => (
+                            <button key={item.id} className={index === bannerIndex ? 'active' : ''} aria-label={`Afficher la bannière ${index + 1}`} aria-pressed={index === bannerIndex} onClick={() => setBannerIndex(index)} />
+                          ))}
+                        </div>
+                        <button className="carousel-arrow" aria-label="Bannière suivante" onClick={() => setBannerIndex((bannerIndex + 1) % banners.length)}><ChevronRight size={20} /></button>
+                      </div>
+                    )}
+                  </article>
+                );
+              })()}
+            </section>
+          )}
           <section className="hero">
             <div className="container hero-grid">
               <div>
@@ -666,7 +759,7 @@ function App() {
               </div>
             </div>
           </section>
-          <main className="container">
+          <main className="container" id="annonces">
             <div className="section-head">
               <div><span className="kicker">EXPLORER JOBY</span><h2>Qu’est-ce qui vous intéresse ?</h2></div>
             </div>
@@ -715,7 +808,9 @@ function App() {
       {screen === 'auth' && (
         <main className="auth-wrap">
           <div className="auth-intro">
-            <span className="brand-logo auth-brand-logo" role="img" aria-label="Logo Joby" />
+            <a className="brand auth-brand" href="/" aria-label="Retour à l’accueil Joby" onClick={(event) => { event.preventDefault(); navigate('home'); }}>
+                <span className="brand-logo auth-brand-logo" role="img" aria-label="Logo Joby" />
+            </a>
             <h1>Rejoignez les opportunités de Goma.</h1>
             <p>Une plateforme, une communauté, de nouvelles possibilités.</p>
           </div>
@@ -881,7 +976,7 @@ function App() {
                         {recentAudit.map((entry) => (
                           <li key={entry.id}>
                             <span className="activity-dot" />
-                            <div><b>{entry.action} · {entry.entity}</b><small>{entry.actor || 'Système'} · {new Date(entry.created_at).toLocaleString('fr-FR')}</small></div>
+                            <div><b>{entry.description}</b><small>{entry.actor || 'Système'} · {new Date(entry.created_at).toLocaleString('fr-FR')}</small></div>
                           </li>
                         ))}
                       </ul>
@@ -918,6 +1013,7 @@ function App() {
                   </div>
                 </div>
                 {adminTab === 'finance' && <p className="admin-help">Les rapports financiers sont calculés à partir des paiements vérifiés. Un nouvel encaissement se crée comme paiement manuel en attente.</p>}
+                {adminTab === 'home_banners' && <p className="admin-help">Ces bannières s’affichent en carrousel sur la page d’accueil. Vous pouvez les ordonner, les activer et choisir une image ou un lien.</p>}
                 {adminTab === 'payments' && <p className="admin-help">Un paiement créé ici reste « en attente » jusqu’à sa vérification manuelle.</p>}
                 {edit && (
                   <form className="panel admin-form" onSubmit={saveAdmin}>
@@ -925,9 +1021,23 @@ function App() {
                     <div className="two">
                       {createFields.map((field) => renderField(field, edit))}
                     </div>
+                    {adminTab === 'home_banners' && (
+                      <div className="banner-image-picker">
+                        <label className="file-picker" htmlFor="admin-banner-image"><ImagePlus size={18} /> Choisir une image depuis cet appareil</label>
+                        <input id="admin-banner-image" className="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => {
+                          const file = event.currentTarget.files?.[0];
+                          if (!file) return;
+                          if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) return report(new Error('Choisissez une image JPG, PNG ou WebP.'));
+                          if (file.size > 5 * 1024 * 1024) return report(new Error('Chaque image doit faire 5 Mo maximum.'));
+                          setAdminImageFile(file);
+                        }} />
+                        <small>Facultatif · JPG, PNG ou WebP · 5 Mo maximum. Sans image, un fond Joby est utilisé.</small>
+                        {adminImageFile && <p className="admin-help">Image sélectionnée : {adminImageFile.name}</p>}
+                      </div>
+                    )}
                     <div className="actioncell">
                       <button className="button primary">{edit.id ? 'Enregistrer les modifications' : 'Ajouter'}</button>
-                      <button type="button" className="button ghost" onClick={() => setEdit(null)}>Annuler</button>
+                      <button type="button" className="button ghost" onClick={() => { setEdit(null); setAdminImageFile(null); }}>Annuler</button>
                     </div>
                   </form>
                 )}
@@ -935,15 +1045,15 @@ function App() {
                   <table>
                     <thead>
                       <tr>
-                        {Object.keys(adminRows[0] || {}).slice(0, 7).map((field) => <th key={field}>{fieldLabels[field] || field}</th>)}
+                        {adminColumns.map((field) => <th key={field}>{fieldLabels[field] || field}</th>)}
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {adminRows.map((row, index) => (
                         <tr key={row.id ?? index}>
-                          {Object.keys(adminRows[0] || {}).slice(0, 7).map((field) => (
-                            <td key={field}>{row[field] == null ? '—' : typeof row[field] === 'object' ? JSON.stringify(row[field]) : String(row[field]).slice(0, 75)}</td>
+                          {adminColumns.map((field) => (
+                            <td key={field}>{row[field] == null ? '—' : typeof row[field] === 'object' ? JSON.stringify(row[field]) : typeof row[field] === 'boolean' || field === 'active' || field === 'published' ? (row[field] === true || row[field] === 1 ? 'Oui' : 'Non') : String(row[field]).slice(0, 110)}</td>
                           ))}
                           <td className="actioncell">
                             <button className="action-button action-view" title="Voir les détails" aria-label="Voir les détails" onClick={() => setSelectedAdmin(row)}><Eye size={17} /></button>

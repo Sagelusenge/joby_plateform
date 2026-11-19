@@ -15,21 +15,201 @@
 .brand-logo {
   display: block;
   width: 160px;
-  height: 87px;
+  height: 76px;
   flex: none;
   background-image: url('/joby-logo-concept.png');
-  background-position: -3px -108px;
+  background-position: -8px -122px;
   background-repeat: no-repeat;
-  background-size: 306px 203px;
+  background-size: 322px 215px;
 }
 
 .auth-brand-logo {
   width: 240px;
-  height: 131px;
-  background-position: -4px -161px;
-  background-size: 459px 306px;
-  border-radius: 16px;
-  box-shadow: 0 10px 24px #0041a21a;
+  height: 114px;
+  background-position: -12px -183px;
+  background-size: 483px 323px;
+}
+
+.brand:hover .brand-logo {
+  transform: scale(1.025);
+}
+
+.brand-logo {
+  transition: transform 180ms ease;
+}
+
+.auth-brand {
+  width: fit-content;
+}
+
+.home-carousel {
+  overflow: hidden;
+  background: #eaf3ff;
+}
+
+.home-banner {
+  position: relative;
+  display: flex;
+  min-height: clamp(300px, 34vw, 430px);
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 82% 18%, #31c7af66, transparent 35%),
+    linear-gradient(112deg, #063e9b, #0879ed 60%, #04a69b);
+  color: #fff;
+  animation: banner-enter 500ms ease both;
+}
+
+.home-banner-image,
+.home-banner-shade {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.home-banner-image {
+  object-fit: cover;
+}
+
+.home-banner-shade {
+  background: linear-gradient(90deg, #08265de8 0%, #083c8bc9 48%, #073a8b48 100%);
+}
+
+.home-banner-content {
+  padding-top: 54px;
+  padding-bottom: 76px;
+  animation: content-enter 600ms 80ms both;
+}
+
+.home-banner-content .kicker {
+  color: #c9e8ff;
+}
+
+.home-banner-content h2 {
+  max-width: 720px;
+  margin: 17px 0 12px;
+  color: #fff;
+  font-size: clamp(32px, 5vw, 58px);
+  letter-spacing: -.045em;
+  line-height: 1.08;
+}
+
+.home-banner-content p {
+  max-width: 610px;
+  margin: 0 0 24px;
+  color: #e1edff;
+  font-size: clamp(14px, 1.6vw, 18px);
+  line-height: 1.7;
+}
+
+.home-banner-content .button {
+  min-height: 46px;
+}
+
+.home-carousel-controls {
+  position: absolute;
+  right: max(24px, calc((100% - 1180px) / 2));
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carousel-arrow,
+.carousel-dots button {
+  display: grid;
+  place-items: center;
+  border: 1px solid #ffffff80;
+  background: #072d67a8;
+  color: #fff;
+}
+
+.carousel-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.carousel-dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  opacity: .7;
+}
+
+.carousel-dots button.active {
+  width: 23px;
+  border-radius: 8px;
+  opacity: 1;
+}
+
+.carousel-arrow:hover,
+.carousel-dots button:hover {
+  background: #fff;
+  color: var(--joby-blue);
+}
+
+.hero-grid > div:first-child {
+  animation: content-enter 600ms ease both;
+}
+
+.hero-visual {
+  animation: float-in 700ms 100ms both;
+}
+
+.category,
+.listing-card,
+.dashboard-card {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.category:hover,
+.listing-card:hover,
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px #143f7515;
+}
+
+.category,
+.listing-card {
+  animation: content-enter 500ms both;
+}
+
+.admin-side button,
+.button,
+.quick-action,
+.action-button {
+  transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.button:hover,
+.quick-action:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes banner-enter {
+  from { opacity: .7; }
+  to { opacity: 1; }
+}
+
+@keyframes content-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .hero {
@@ -398,17 +578,41 @@
 
 @media (max-width: 700px) {
   .brand-logo {
-    width: 140px;
-    height: 76px;
-    background-position: -2px -94px;
-    background-size: 267px 178px;
+    width: 132px;
+    height: 63px;
+    background-position: -7px -102px;
+    background-size: 269px 179px;
   }
 
   .auth-brand-logo {
     width: 200px;
-    height: 109px;
-    background-position: -3px -134px;
-    background-size: 368px 245px;
+    height: 95px;
+    background-position: -10px -153px;
+    background-size: 402px 269px;
+  }
+
+  .home-banner {
+    min-height: 340px;
+  }
+
+  .home-banner-content {
+    padding-top: 42px;
+    padding-bottom: 80px;
+  }
+
+  .home-banner-content h2 {
+    max-width: 560px;
+    font-size: clamp(29px, 8vw, 42px);
+  }
+
+  .home-banner-content p {
+    max-width: 520px;
+    font-size: 14px;
+  }
+
+  .home-carousel-controls {
+    right: 15px;
+    bottom: 17px;
   }
 
   .admin-toolbar {
@@ -440,5 +644,40 @@
 
   .detail-list dd {
     padding-top: 4px;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-banner {
+    min-height: 360px;
+  }
+
+  .home-banner-content .kicker {
+    font-size: 9px;
+    letter-spacing: .12em;
+  }
+
+  .home-carousel-controls {
+    right: 12px;
+    gap: 8px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .header-actions > .primary {
+    min-width: 39px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }

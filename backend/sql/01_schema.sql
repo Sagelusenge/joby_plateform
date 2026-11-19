@@ -26,6 +26,12 @@ CREATE TABLE IF NOT EXISTS payments (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY K
 CREATE TABLE IF NOT EXISTS reports (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, listing_id BIGINT UNSIGNED NOT NULL, reporter_id BIGINT UNSIGNED NULL, reason VARCHAR(120) NOT NULL, details TEXT, status ENUM('open','reviewing','resolved','dismissed') NOT NULL DEFAULT 'open', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(listing_id) REFERENCES listings(id), FOREIGN KEY(reporter_id) REFERENCES users(id));
 CREATE TABLE IF NOT EXISTS content_pages (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, slug VARCHAR(120) NOT NULL UNIQUE, title VARCHAR(190) NOT NULL, body MEDIUMTEXT NOT NULL, published BOOLEAN NOT NULL DEFAULT FALSE, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS announcements (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, title VARCHAR(190) NOT NULL, body TEXT NOT NULL, published BOOLEAN NOT NULL DEFAULT FALSE, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS home_banners (
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, title VARCHAR(190) NOT NULL, description TEXT NOT NULL,
+ image_url VARCHAR(1500) NULL, cta_label VARCHAR(80) NOT NULL DEFAULT 'Découvrir', target_url VARCHAR(1500) NULL,
+ sort_order INT NOT NULL DEFAULT 0, active BOOLEAN NOT NULL DEFAULT TRUE,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 CREATE TABLE IF NOT EXISTS contact_messages (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(120) NOT NULL, email VARCHAR(190) NOT NULL, subject VARCHAR(190) NOT NULL, message TEXT NOT NULL, status ENUM('new','read','closed') NOT NULL DEFAULT 'new', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS notifications (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, user_id BIGINT UNSIGNED NOT NULL, title VARCHAR(190) NOT NULL, body TEXT, read_at DATETIME NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);
 CREATE TABLE IF NOT EXISTS app_settings (setting_key VARCHAR(120) PRIMARY KEY, setting_value TEXT, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
@@ -37,3 +43,5 @@ INSERT IGNORE INTO cities(id,name,province,country) VALUES (1,'Goma','Nord-Kivu'
 INSERT IGNORE INTO districts(city_id,name) VALUES (1,'Goma'),(1,'Karisimbi');
 INSERT IGNORE INTO categories(id,name,slug) VALUES (1,'Services','services'),(2,'Produits','produits'),(3,'Entreprises','entreprises'),(4,'Emplois','emplois'),(5,'Missions','missions');
 INSERT IGNORE INTO promotion_plans(id,name,price,currency,duration_days) VALUES (1,'Mise en avant 7 jours',5,'USD',7),(2,'Mise en avant 30 jours',15,'USD',30);
+INSERT IGNORE INTO home_banners(id,title,description,cta_label,target_url,sort_order,active)
+VALUES (1,'Les opportunités de Goma, réunies au même endroit','Découvrez les services, produits et emplois près de chez vous avec Joby.','Explorer les annonces','#annonces',0,TRUE);

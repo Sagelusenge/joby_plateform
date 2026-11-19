@@ -6,7 +6,8 @@ Prototype applicatif full-stack (MVP) pour Goma, RDC. **Comprend du code source,
 
 - `frontend/` : React 18 + Vite, interface francophone responsive, recherche, annonces, connexion, espace annonceur, administration.
 - `backend/` : API Express, authentification JWT/bcrypt, contrôles de rôle, endpoints annonces, modération, CRUD administratif.
-- `backend/sql/01_schema.sql` : MySQL/MariaDB, 17 tables métier et 3 vues de rapports.
+- `backend/sql/01_schema.sql` : MySQL/MariaDB, 18 tables métier et 3 vues de rapports.
+- `backend/sql/02_home_banners.sql` : migration idempotente pour les bannières administrables de la page d’accueil.
 - `reference/` : maquettes Stitch originales reçues (HTML, PNG et charte DESIGN.md).
 - `frontend/public/joby-brand-reference.jpg` : identité Joby fournie en référence.
 
@@ -22,6 +23,7 @@ sudo mariadb
 
 ```sql
 SOURCE /CHEMIN/ABSOLU/joby_platform/backend/sql/01_schema.sql;
+SOURCE /CHEMIN/ABSOLU/joby_platform/backend/sql/02_home_banners.sql;
 CREATE USER IF NOT EXISTS 'joby_app'@'localhost' IDENTIFIED BY 'REMPLACER_PAR_MOT_DE_PASSE_SOLIDE';
 GRANT SELECT, INSERT, UPDATE, DELETE ON joby.* TO 'joby_app'@'localhost';
 FLUSH PRIVILEGES;
@@ -73,6 +75,8 @@ Ne jamais créer de compte administrateur avec un mot de passe prédéfini en co
 - CRUD utilisateur sur ses annonces, envoi à la modération après création ou modification ; images par URL ou sélection locale (JPG, PNG, WebP, 5 Mo max. par photo et 5 par annonce).
 - Les photos envoyées sont stockées dans `backend/uploads/` et servies par l'API ; configurez `API_PUBLIC_URL` si l'API n'est pas accessible sur `http://localhost:4000`.
 - Tableau de bord administratif basé sur la base ; modération ; création et gestion des utilisateurs, annonces, catégories, villes, districts, formules, promotions, paiements manuels en attente, pages, annonces institutionnelles et signalements ; consultation du journal d'audit et export CSV des finances.
+- Carrousel de bannières de la page d’accueil géré depuis **Administration → Bannières d’accueil** : texte, image importée ou URL, lien d’action, ordre et activation.
+- Journal d’audit présenté en français avec des descriptions compréhensibles ; interface adaptative avec animations respectant la préférence de réduction des mouvements.
 - Vues MySQL `v_listing_summary`, `v_monthly_revenue`, `v_listing_stats` ; demande de promotion.
 - Paiements **manuels et vérifiés par admin uniquement**, sans intégration Mobile Money ou prestataire de paiement.
 
@@ -90,7 +94,7 @@ Ne jamais créer de compte administrateur avec un mot de passe prédéfini en co
 
 ## Dictionnaire rapide API
 
-- Public : `GET /api/listings`, `GET /api/listings/:id`, `GET /api/categories`, `GET /api/cities`, `GET /api/plans`.
+- Public : `GET /api/listings`, `GET /api/listings/:id`, `GET /api/categories`, `GET /api/cities`, `GET /api/plans`, `GET /api/banners`.
 - Auth : `POST /api/auth/register`, `POST /api/auth/login`, `GET/PATCH /api/me`.
 - Annonceur : `GET/POST /api/my/listings`, `PUT/DELETE /api/my/listings/:id`, `GET/POST /api/my/promotions`, `GET /api/my/payments`.
 - Administrateur : `GET /api/admin/stats`, `GET /api/admin/listings`, `PATCH /api/admin/listings/:id/status`, `GET/POST/PATCH/DELETE /api/admin/modules/:module`, `GET /api/admin/audit` et `GET /api/admin/finance`.
