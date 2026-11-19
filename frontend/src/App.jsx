@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -10,12 +10,15 @@ import {
   Eye,
   ImagePlus,
   LogOut,
+  Mail,
   MapPin,
   Menu,
   MessageCircle,
   Phone,
   Plus,
   Search,
+  Send,
+  Settings,
   ShieldCheck,
   ShoppingBag,
   Store,
@@ -35,6 +38,19 @@ const types = {
   job: 'Emplois',
   mission: 'Missions',
 };
+const defaultSettings = {
+  site_name: 'Joby',
+  site_tagline: 'Trouvez. Vendez. Connectez.',
+  city_name: 'Goma, RD Congo',
+  contact_email: '',
+  contact_phone: '',
+  contact_whatsapp: '',
+};
+const rolePermissions = [
+  { role: 'Utilisateur', access: 'Espace personnel', permissions: 'Gérer ses propres annonces et promotions, et contacter Joby.' },
+  { role: 'Modérateur', access: 'Tableau de bord, annonces, signalements et messages', permissions: 'Modérer les annonces, traiter les signalements et enregistrer des réponses aux messages.' },
+  { role: 'Administrateur', access: 'Tous les modules', permissions: 'Gérer tous les contenus, utilisateurs et rôles, paramètres, paiements, finances et journal d’audit.' },
+];
 
 const moduleFields = {
   categories: ['name', 'slug', 'parent_id', 'active'],
@@ -68,6 +84,8 @@ const adminLabels = {
   pages: 'Pages du site',
   announcements: 'Communiqués',
   messages: 'Messages',
+  settings: 'Paramètres du site',
+  permissions: 'Rôles et permissions',
   finance: 'Finances',
   audit: 'Journal d’audit',
 };
@@ -95,6 +113,17 @@ const fieldLabels = {
   ends_at: 'Date de fin',
   featured_until: 'Mis en avant jusqu’au',
   id: 'ID',
+  admin_reply: 'Réponse de Joby',
+  replied_at: 'Répondu le',
+  replied_by_name: 'Répondu par',
+  listing_title: 'Annonce concernée',
+  reporter_name: 'Signalé par',
+  site_name: 'Nom du site',
+  site_tagline: 'Slogan',
+  city_name: 'Ville affichée',
+  contact_email: 'E-mail de contact',
+  contact_phone: 'Téléphone de contact',
+  contact_whatsapp: 'WhatsApp de contact',
   image_url: 'URL de l’image',
   action: 'Action',
   entity: 'Élément',
@@ -212,8 +241,18 @@ function App() {
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [q, setQ] = useState('');
   const [type, setType] = useState('');
+  const [searching, setSearching] = useState(false);
+  const searchRequestId = useRef(0);
+  const searchTimer = useRef(null);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [publicSettings, setPublicSettings] = useState(defaultSettings);
+  const [siteSettings, setSiteSettings] = useState(defaultSettings);
+  const [reportStatusFilter, setReportStatusFilter] = useState('');
+  const [reportQuery, setReportQuery] = useState('');
+  const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [replyDraft, setReplyDraft] = useState('');
+  const [replyBusy, setReplyBusy] = useState(false);
   const [authMode, setAuthMode] = useState('login');
   const [login, setLogin] = useState({ name: '', email: '', password: '' });
   const [draft, setDraft] = useState(emptyDraft);
@@ -245,21 +284,45 @@ function App() {
 
   const report = (exception) => {
     setError(exception.message || String(exception));
-    setTimeout(() => setError(''), 6000);
   };
 
-  const refresh = () => request(`/listings?q=${encodeURIComponent(q)}&type=${encodeURIComponent(type)}`)
-    .then(setListings)
-    .catch(report);
+  const refresh = () => {
+    const requestId = ++searchRequestId.current;
+    setSearching(true);
+    return request(`/listings?q=${encodeURIComponent(q)}&type=${encodeURIComponent(type)}`)
+      .then((items) => {
+        if (requestId === searchRequestId.current) setListings(items);
+      })
+      .catch((exception) => {
+        if (requestId === searchRequestId.current) report(exception);
+      })
+      .finally(() => {
+        if (requestId === searchRequestId.current) setSearching(false);
+      });
+  };
 
   useEffect(() => {
-    refresh();
+    searchTimer.current = window.setTimeout(refresh, 250);
+    return () => window.clearTimeout(searchTimer.current);
   }, [q, type]);
+
+  useEffect(() => {
+    if (!error) return undefined;
+    const timer = window.setTimeout(() => setError(''), 6000);
+    return () => window.clearTimeout(timer);
+  }, [error]);
+
+  useEffect(() => {
+    if (!notice) return undefined;
+    const timer = window.setTimeout(() => setNotice(''), 5000);
+    return () => window.clearTimeout(timer);
+  }, [notice]);
 
   useEffect(() => {
     request('/categories').then(setCategories).catch(report);
     request('/cities').then(setCities).catch(report);
     request('/plans').then(setPlans).catch(report);
+    request('/settings').then((value) => setPublicSettings({ ...defaultSettings, ...value })).catch(report);
     request('/banners').then((items) => {
       setBanners(items);
       setBannerIndex(0);
@@ -293,6 +356,15 @@ function App() {
           setRecentAudit([]);
         }
         return;
+      }
+      if (tab === 'settings') {
+        setSiteSettings({ ...defaultSettings, ...await request('/admin/settings') });
+        return;
+      }
+      if (tab === 'permissions') return;
+      if (tab === 'reports') {
+        setReportStatusFilter('');
+        setReportQuery('');
       }
 
       const endpoint = tab === 'listings'
@@ -352,6 +424,23 @@ function App() {
     } catch (exception) {
       report(exception);
     }
+  };
+
+  const submitContact = async (event) => {
+    event.preventDefault();
+    try {
+      await request('/contact', { method: 'POST', body: JSON.stringify(contactForm) });
+      setContactForm({ name: '', email: '', subject: '', message: '' });
+      setNotice('Votre message a bien été envoyé à Joby.');
+    } catch (exception) {
+      report(exception);
+    }
+  };
+
+  const submitSearch = (event) => {
+    event.preventDefault();
+    window.clearTimeout(searchTimer.current);
+    refresh();
   };
 
   const logout = () => {
@@ -450,9 +539,50 @@ function App() {
         });
       }
       await loadAdmin(adminTab);
-      setNotice('Statut mis à jour.');
+      const messages = {
+        listings: { published: 'Annonce validée et publiée.', rejected: 'Annonce rejetée.', hidden: 'Annonce masquée.' },
+        reports: { reviewing: 'Signalement pris en charge.', resolved: 'Signalement marqué comme résolu.', dismissed: 'Signalement classé sans suite.' },
+        messages: { read: 'Message marqué comme lu.', closed: 'Message fermé.' },
+        payments: { verified: 'Paiement vérifié.', rejected: 'Paiement rejeté.' },
+        promotions: { active: 'Promotion activée.', rejected: 'Promotion rejetée.' },
+        users: { active: 'Compte utilisateur réactivé.', suspended: 'Compte utilisateur suspendu.' },
+      };
+      setNotice(messages[adminTab]?.[status] || 'Modification enregistrée.');
     } catch (exception) {
       report(exception);
+    }
+  };
+
+  const saveSiteSettings = async (event) => {
+    event.preventDefault();
+    try {
+      const values = Object.fromEntries(new FormData(event.currentTarget).entries());
+      const saved = await request('/admin/settings', { method: 'PUT', body: JSON.stringify(values) });
+      setSiteSettings({ ...defaultSettings, ...saved });
+      setPublicSettings({ ...defaultSettings, ...saved });
+      setNotice('Paramètres du site enregistrés.');
+    } catch (exception) {
+      report(exception);
+    }
+  };
+
+  const sendMessageReply = async (event) => {
+    event.preventDefault();
+    if (!selectedAdmin) return;
+    setReplyBusy(true);
+    try {
+      await request(`/admin/messages/${selectedAdmin.id}/reply`, {
+        method: 'POST',
+        body: JSON.stringify({ reply: replyDraft }),
+      });
+      const rows = await request('/admin/modules/messages');
+      setAdminRows(rows);
+      setSelectedAdmin(rows.find((row) => row.id === selectedAdmin.id) || selectedAdmin);
+      setNotice('Réponse enregistrée. Utilisez le lien e-mail pour l’envoyer au destinataire.');
+    } catch (exception) {
+      report(exception);
+    } finally {
+      setReplyBusy(false);
     }
   };
 
@@ -635,7 +765,29 @@ function App() {
     ? ['id', 'actor', 'action', 'entity', 'description', 'created_at']
     : adminTab === 'home_banners'
       ? ['id', 'title', 'active', 'sort_order', 'description', 'image_url']
+      : adminTab === 'reports'
+        ? ['id', 'listing_title', 'reporter_name', 'reason', 'status', 'created_at']
+        : adminTab === 'messages'
+          ? ['id', 'name', 'email', 'subject', 'status', 'created_at']
     : Object.keys(adminRows[0] || {}).slice(0, 7);
+  const reportCounts = useMemo(() => adminRows.reduce((counts, row) => {
+    counts[row.status] = (counts[row.status] || 0) + 1;
+    return counts;
+  }, {}), [adminRows]);
+  const reportStatuses = [
+    ['', 'Tous'],
+    ['open', 'Ouverts'],
+    ['reviewing', 'En cours'],
+    ['resolved', 'Résolus'],
+    ['dismissed', 'Classés'],
+  ];
+  const visibleAdminRows = useMemo(() => {
+    if (adminTab !== 'reports') return adminRows;
+    const query = reportQuery.trim().toLocaleLowerCase('fr');
+    return adminRows.filter((row) => (!reportStatusFilter || row.status === reportStatusFilter)
+      && (!query || [row.listing_title, row.reporter_name, row.reason, row.details]
+        .some((value) => String(value || '').toLocaleLowerCase('fr').includes(query))));
+  }, [adminRows, adminTab, reportQuery, reportStatusFilter]);
   const cards = [
     { key: 'service', icon: BriefcaseBusiness },
     { key: 'product', icon: ShoppingBag },
@@ -656,6 +808,7 @@ function App() {
             <button onClick={() => { navigate('home'); setType('service'); }}>Services</button>
             <button onClick={() => { navigate('home'); setType('product'); }}>Produits</button>
             <button onClick={() => { navigate('home'); setType('job'); }}>Emplois</button>
+            <button onClick={() => navigate('contact')}>Contact</button>
             {user && <button onClick={() => navigate('user')}>Mon espace</button>}
             {['admin', 'moderator'].includes(user?.role) && <button onClick={() => navigate('admin')}>Administration</button>}
           </nav>
@@ -676,8 +829,8 @@ function App() {
         </div>
       </header>
 
-      {error && <div className="toast bad" role="alert">{error}</div>}
-      {notice && <div className="toast" role="status">{notice}<button onClick={() => setNotice('')}>×</button></div>}
+      {error && <div className="toast bad" role="alert">{error}<button aria-label="Fermer le message d’erreur" onClick={() => setError('')}>×</button></div>}
+      {notice && <div className="toast" role="status"><Check size={17} /> {notice}<button aria-label="Fermer la notification" onClick={() => setNotice('')}>×</button></div>}
 
       {screen === 'home' && (
         <>
@@ -729,16 +882,16 @@ function App() {
           <section className="hero">
             <div className="container hero-grid">
               <div>
-                <div className="eyebrow"><span className="online" /> La plateforme locale de Goma</div>
+                <div className="eyebrow"><span className="online" /> La plateforme locale de {publicSettings.city_name.split(',')[0]}</div>
                 <h1>Les bonnes opportunités sont <span>juste à côté.</span></h1>
                 <p>Découvrez des services, des produits, des entreprises et des emplois près de chez vous. Joby vous connecte aux bonnes personnes.</p>
-                <div className="searchbox">
+                <form className="searchbox" role="search" onSubmit={submitSearch}>
                   <Search color="#0054cb" size={23} />
-                  <input placeholder="Que recherchez-vous à Goma ?" value={q} onChange={(event) => setQ(event.target.value)} />
-                  <button className="button primary" onClick={refresh}>Rechercher</button>
-                </div>
+                  <input aria-label="Rechercher des annonces" placeholder={`Que recherchez-vous à ${publicSettings.city_name.split(',')[0]} ?`} value={q} onChange={(event) => setQ(event.target.value)} />
+                  <button className="button primary" type="submit" disabled={searching}>{searching ? 'Recherche…' : 'Rechercher'}</button>
+                </form>
                 <div className="hero-notes">
-                  <span><MapPin size={16} /> Goma, RD Congo</span>
+                  <span><MapPin size={16} /> {publicSettings.city_name}</span>
                   <span>✓ Annonces gratuites</span>
                   <span>✓ Contact direct WhatsApp</span>
                 </div>
@@ -829,6 +982,34 @@ function App() {
               </button>
             </p>
           </form>
+        </main>
+      )}
+
+      {screen === 'contact' && (
+        <main className="container inner-page contact-page">
+          <div className="page-heading">
+            <span className="kicker">NOUS SOMMES À VOTRE ÉCOUTE</span>
+            <h1>Contactez l’équipe {publicSettings.site_name}</h1>
+            <p>Envoyez-nous votre question ou votre suggestion. Notre équipe vous répondra dès que possible.</p>
+          </div>
+          <div className="contact-grid">
+            <form className="panel contact-form" onSubmit={submitContact}>
+              <label>Nom complet<input required minLength="2" maxLength="120" value={contactForm.name} onChange={(event) => setContactForm({ ...contactForm, name: event.target.value })} /></label>
+              <label>Adresse e-mail<input type="email" required maxLength="190" value={contactForm.email} onChange={(event) => setContactForm({ ...contactForm, email: event.target.value })} /></label>
+              <label>Objet<input required minLength="3" maxLength="190" value={contactForm.subject} onChange={(event) => setContactForm({ ...contactForm, subject: event.target.value })} /></label>
+              <label>Votre message<textarea required minLength="10" maxLength="5000" rows="6" value={contactForm.message} onChange={(event) => setContactForm({ ...contactForm, message: event.target.value })} /></label>
+              <button className="button primary"><Send size={17} /> Envoyer le message</button>
+            </form>
+            <aside className="panel contact-info">
+              <span className="kicker">COORDONNÉES</span>
+              <h2>Parlons de votre besoin.</h2>
+              <p>{publicSettings.city_name}</p>
+              {publicSettings.contact_email && <a href={`mailto:${publicSettings.contact_email}`}><Mail size={17} /> {publicSettings.contact_email}</a>}
+              {publicSettings.contact_phone && <a href={`tel:${publicSettings.contact_phone}`}><Phone size={17} /> {publicSettings.contact_phone}</a>}
+              {publicSettings.contact_whatsapp && <a target="_blank" rel="noreferrer" href={`https://wa.me/${publicSettings.contact_whatsapp.replace(/[^0-9]/g, '')}`}><MessageCircle size={17} /> WhatsApp</a>}
+              {!publicSettings.contact_email && !publicSettings.contact_phone && !publicSettings.contact_whatsapp && <p>Utilisez le formulaire pour joindre notre équipe.</p>}
+            </aside>
+          </div>
         </main>
       )}
 
@@ -1005,16 +1186,66 @@ function App() {
             ) : (
               <>
                 <div className="admin-toolbar">
-                  <p>{adminRows.length} enregistrement(s)</p>
+                  <p>{adminTab === 'reports' ? `${visibleAdminRows.length} signalement(s) affiché(s)` : `${adminRows.length} enregistrement(s)`}</p>
                   <div className="admin-toolbar-actions">
                     {adminTab === 'finance' && <button className="button secondary" onClick={exportFinance}><Download size={16} /> Exporter CSV</button>}
                     {adminTab === 'finance' && <button className="button ghost" onClick={() => openAdminCreate('payments')}><Plus size={16} /> Ajouter un paiement</button>}
                     {canCreate && <button className="button primary" onClick={() => setEdit({})}><Plus size={16} /> Nouvel élément</button>}
                   </div>
                 </div>
+                {adminTab === 'settings' && (
+                  <form className="panel admin-form settings-form" onSubmit={saveSiteSettings}>
+                    <h2>Informations affichées sur le site</h2>
+                    <p className="admin-help">Ces informations apparaissent sur la page d’accueil et la page Contact.</p>
+                    <div className="two">
+                      {Object.keys(defaultSettings).map((field) => (
+                        <label key={field}>
+                          {fieldLabels[field]}
+                          <input
+                            name={field}
+                            type={field === 'contact_email' ? 'email' : field.startsWith('contact_') ? 'tel' : 'text'}
+                            maxLength={field === 'site_name' ? 80 : field === 'site_tagline' ? 180 : field === 'city_name' ? 120 : field === 'contact_email' ? 190 : 35}
+                            required={!field.startsWith('contact_')}
+                            value={siteSettings[field] || ''}
+                            onChange={(event) => setSiteSettings((current) => ({ ...current, [field]: event.target.value }))}
+                          />
+                        </label>
+                      ))}
+                    </div>
+                    <button className="button primary"><Check size={16} /> Enregistrer les paramètres</button>
+                  </form>
+                )}
+                {adminTab === 'permissions' && (
+                  <section className="panel permissions-panel">
+                    <h2>Accès selon le rôle</h2>
+                    <p className="admin-help">Les autorisations ci-dessous sont appliquées par l’API. Les rôles sont définis par compte; les permissions par module ne sont pas configurables séparément.</p>
+                    <div className="permissions-grid">
+                      {rolePermissions.map((permission) => (
+                        <article key={permission.role}>
+                          <h3>{permission.role}</h3>
+                          <strong>{permission.access}</strong>
+                          <p>{permission.permissions}</p>
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+                )}
                 {adminTab === 'finance' && <p className="admin-help">Les rapports financiers sont calculés à partir des paiements vérifiés. Un nouvel encaissement se crée comme paiement manuel en attente.</p>}
                 {adminTab === 'home_banners' && <p className="admin-help">Ces bannières s’affichent en carrousel sur la page d’accueil. Vous pouvez les ordonner, les activer et choisir une image ou un lien.</p>}
                 {adminTab === 'payments' && <p className="admin-help">Un paiement créé ici reste « en attente » jusqu’à sa vérification manuelle.</p>}
+                {adminTab === 'reports' && (
+                  <div className="report-filters" aria-label="Filtrer les signalements">
+                    <label className="report-search">Rechercher<input value={reportQuery} onChange={(event) => setReportQuery(event.target.value)} placeholder="Annonce, déclarant ou motif" /></label>
+                    <div className="report-status-filters">
+                      {reportStatuses.map(([value, label]) => (
+                        <button key={value || 'all'} type="button" className={reportStatusFilter === value ? 'selected' : ''} onClick={() => setReportStatusFilter(value)}>
+                          {label} <span>{value ? reportCounts[value] || 0 : adminRows.length}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {adminTab === 'messages' && <p className="admin-help">Les réponses sont enregistrées dans Joby. L’envoi réel se fait ensuite depuis votre application e-mail avec le lien « Envoyer par e-mail ».</p>}
                 {edit && (
                   <form className="panel admin-form" onSubmit={saveAdmin}>
                     <h3>{edit.id ? 'Modifier' : 'Ajouter'} — {adminLabels[adminTab]}</h3>
@@ -1050,13 +1281,16 @@ function App() {
                       </tr>
                     </thead>
                     <tbody>
-                      {adminRows.map((row, index) => (
+                      {visibleAdminRows.map((row, index) => (
                         <tr key={row.id ?? index}>
                           {adminColumns.map((field) => (
                             <td key={field}>{row[field] == null ? '—' : typeof row[field] === 'object' ? JSON.stringify(row[field]) : typeof row[field] === 'boolean' || field === 'active' || field === 'published' ? (row[field] === true || row[field] === 1 ? 'Oui' : 'Non') : String(row[field]).slice(0, 110)}</td>
                           ))}
                           <td className="actioncell">
-                            <button className="action-button action-view" title="Voir les détails" aria-label="Voir les détails" onClick={() => setSelectedAdmin(row)}><Eye size={17} /></button>
+                            <button className="action-button action-view" title="Voir les détails" aria-label="Voir les détails" onClick={() => {
+                              setSelectedAdmin(row);
+                              setReplyDraft(row.admin_reply || '');
+                            }}><Eye size={17} /></button>
                             {adminTab === 'listings' && (
                               <>
                                 {row.status !== 'published' && <button className="action-button action-success" title="Publier" aria-label="Publier" onClick={() => setStatus(row, 'published')}><Check size={17} /></button>}
@@ -1076,7 +1310,13 @@ function App() {
                                 <button className="action-button action-delete" title="Rejeter" aria-label="Rejeter" onClick={() => setStatus(row, 'rejected')}><X size={17} /></button>
                               </>
                             )}
-                            {adminTab === 'reports' && row.status === 'open' && <button className="action-button action-success" title="Marquer comme résolu" aria-label="Marquer comme résolu" onClick={() => setStatus(row, 'resolved')}><Check size={17} /></button>}
+                            {adminTab === 'reports' && row.status === 'open' && <button className="action-button action-warning" title="Prendre en charge" aria-label="Prendre en charge" onClick={() => setStatus(row, 'reviewing')}><Eye size={17} /></button>}
+                            {adminTab === 'reports' && ['open', 'reviewing'].includes(row.status) && (
+                              <>
+                                <button className="action-button action-success" title="Marquer comme résolu" aria-label="Marquer comme résolu" onClick={() => setStatus(row, 'resolved')}><Check size={17} /></button>
+                                <button className="action-button action-delete" title="Classer sans suite" aria-label="Classer sans suite" onClick={() => setStatus(row, 'dismissed')}><X size={17} /></button>
+                              </>
+                            )}
                             {moduleFields[adminTab] && <button className="action-button action-edit" title="Modifier" aria-label="Modifier" onClick={() => setEdit(row)}><Edit3 size={17} /></button>}
                             {canDelete && <button className="action-button action-delete" title="Supprimer" aria-label="Supprimer" onClick={() => deleteAdmin(row)}><Trash2 size={17} /></button>}
                           </td>
@@ -1084,7 +1324,7 @@ function App() {
                       ))}
                     </tbody>
                   </table>
-                  {adminRows.length === 0 && <div className="empty">Aucune donnée dans ce module.</div>}
+                  {visibleAdminRows.length === 0 && <div className="empty">{adminRows.length && adminTab === 'reports' ? 'Aucun signalement ne correspond à ces filtres.' : 'Aucune donnée dans ce module.'}</div>}
                 </div>
               </>
             )}
@@ -1124,14 +1364,35 @@ function App() {
                 </div>
               ))}
             </dl>
+            {adminTab === 'messages' && (
+              <section className="message-reply">
+                <h3>Répondre au message</h3>
+                <form onSubmit={sendMessageReply}>
+                  <label>Votre réponse<textarea required minLength="2" maxLength="5000" rows="5" value={replyDraft} onChange={(event) => setReplyDraft(event.target.value)} /></label>
+                  <button className="button primary" disabled={replyBusy}><Send size={16} /> {replyBusy ? 'Enregistrement…' : 'Enregistrer la réponse'}</button>
+                </form>
+                {selectedAdmin.admin_reply && (
+                  <a
+                    className="button secondary"
+                    href={`mailto:${encodeURIComponent(selectedAdmin.email)}?subject=${encodeURIComponent(`Re: ${selectedAdmin.subject}`)}&body=${encodeURIComponent(selectedAdmin.admin_reply)}`}
+                  >
+                    <Mail size={16} /> Envoyer par e-mail
+                  </a>
+                )}
+              </section>
+            )}
           </div>
         </div>
       )}
 
       <footer>
         <div className="container foot">
-          <div><strong>Joby.</strong><p>Trouvez. Vendez. Connectez.</p></div>
-          <p>Goma, République démocratique du Congo</p>
+          <div><strong>{publicSettings.site_name}.</strong><p>{publicSettings.site_tagline}</p></div>
+          <p>{publicSettings.city_name}</p>
+          <div className="footer-contacts">
+            {publicSettings.contact_email && <a href={`mailto:${publicSettings.contact_email}`}>{publicSettings.contact_email}</a>}
+            {publicSettings.contact_phone && <a href={`tel:${publicSettings.contact_phone}`}>{publicSettings.contact_phone}</a>}
+          </div>
           <p>© {new Date().getFullYear()} Joby. Tous droits réservés.</p>
         </div>
       </footer>

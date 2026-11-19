@@ -31,8 +31,14 @@ const moderator=(req,res,next)=>['admin','moderator'].includes(req.user.role)?ne
 const audit=async(u,action,entity,id,details={})=>run('INSERT INTO audit_logs(actor_id,action,entity,entity_id,details) VALUES(?,?,?,?,?)',[u,action,entity,id,JSON.stringify(details)]);
 const safeId=v=>{const n=Number(v);if(!Number.isSafeInteger(n)||n<1)throw Object.assign(new Error('Identifiant invalide'),{status:400});return n};
 const input=z.object({name:z.string().trim().min(2).max(120),email:z.string().email().max(190),password:z.string().min(10).max(100)});
+const defaultSettings={site_name:'Joby',site_tagline:'Trouvez. Vendez. Connectez.',city_name:'Goma, RD Congo',contact_email:'',contact_phone:'',contact_whatsapp:''};
+const editableSettingsSchema=z.object({site_name:z.string().trim().min(2).max(80),site_tagline:z.string().trim().min(2).max(180),city_name:z.string().trim().min(2).max(120),contact_email:z.string().trim().email().max(190).or(z.literal('')),contact_phone:z.string().trim().max(35),contact_whatsapp:z.string().trim().max(35)}).partial().strict().refine(value=>Object.keys(value).length>0,'Au moins un paramètre est requis');
+const loadSettings=async()=>{const keys=Object.keys(defaultSettings);const rows=await run(`SELECT setting_key,setting_value FROM app_settings WHERE setting_key IN (${keys.map(()=>'?').join(',')})`,keys);return{...defaultSettings,...Object.fromEntries(rows.map(row=>[row.setting_key,row.setting_value??'']))}};
 app.get('/api/health',wrap(async(req,res)=>{await run('SELECT 1');res.json({ok:true,service:'joby-api'})}));
 app.get('/api/banners',wrap(async(req,res)=>res.json(await run('SELECT id,title,description,image_url,cta_label,target_url FROM home_banners WHERE active=1 ORDER BY sort_order,id LIMIT 10'))));
+app.get('/api/settings',wrap(async(req,res)=>res.json(await loadSettings())));
+app.get('/api/admin/settings',auth,admin,wrap(async(req,res)=>res.json(await loadSettings())));
+app.put('/api/admin/settings',auth,admin,wrap(async(req,res)=>{const values=validate(editableSettingsSchema,req.body);for(const [key,value] of Object.entries(values))await run('INSERT INTO app_settings(setting_key,setting_value) VALUES(?,?) ON DUPLICATE KEY UPDATE setting_value=VALUES(setting_value)',[key,value]);await audit(req.user.id,'update','app_settings',null,{keys:Object.keys(values)});res.json(await loadSettings())}));
 app.post('/api/auth/register',wrap(async(req,res)=>{const v=validate(input,req.body);const hash=await bcrypt.hash(v.password,12);try{const result=await run('INSERT INTO users(name,email,password_hash) VALUES(?,?,?)',[v.name,v.email.toLowerCase(),hash]);const u={id:result.insertId,name:v.name,email:v.email.toLowerCase(),role:'user',status:'active'};res.status(201).json({user:u,token:tokenFor(u)})}catch(e){if(e.code==='ER_DUP_ENTRY')return res.status(409).json({error:'Adresse e-mail déjà utilisée'});throw e}}));
 app.post('/api/auth/login',wrap(async(req,res)=>{const v=validate(z.object({email:z.string().email(),password:z.string()}),req.body);const r=await run('SELECT * FROM users WHERE email=?',[v.email.toLowerCase()]);const u=r[0];if(!u||!(await bcrypt.compare(v.password,u.password_hash))||u.status!=='active')return res.status(401).json({error:'Identifiants incorrects ou compte suspendu'});delete u.password_hash;res.json({user:u,token:tokenFor(u)})}));
 app.get('/api/me',auth,(req,res)=>res.json(req.user));
@@ -47,7 +53,18 @@ const imageTypes=new Map([['image/jpeg','.jpg'],['image/png','.png'],['image/web
 const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024,files:5},fileFilter:(req,file,cb)=>imageTypes.has(file.mimetype)?cb(null,true):cb(Object.assign(new Error('Choisissez des images JPG, PNG ou WebP.'),{status:400}))});
 const hasValidImageSignature=file=>(file.mimetype==='image/jpeg'&&file.buffer.subarray(0,3).equals(Buffer.from([0xff,0xd8,0xff])))||(file.mimetype==='image/png'&&file.buffer.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex')))||(file.mimetype==='image/webp'&&file.buffer.toString('ascii',0,4)==='RIFF'&&file.buffer.toString('ascii',8,12)==='WEBP');
 app.post('/api/my/uploads',auth,upload.array('images',5),wrap(async(req,res)=>{const files=req.files||[];if(!files.length)return res.status(400).json({error:'Sélectionnez au moins une photo'});if(files.some(file=>!hasValidImageSignature(file)))return res.status(400).json({error:'Le contenu d’une image ne correspond pas à son format'});const image_urls=[];for(const file of files){const filename=`${randomUUID()}${imageTypes.get(file.mimetype)}`;await writeFile(path.join(uploadsDir,filename),file.buffer,{flag:'wx'});image_urls.push(new URL(`/uploads/${filename}`,process.env.API_PUBLIC_URL||`http://localhost:${PORT}`).toString())}res.status(201).json({image_urls})}));
-app.get('/api/listings',wrap(async(req,res)=>{const filters=["l.status='published'","(l.expires_at IS NULL OR l.expires_at>NOW())"];const vals=[];if(req.query.q){filters.push('(l.title LIKE ? OR l.description LIKE ?)');vals.push('%'+String(req.query.q).slice(0,100)+'%','%'+String(req.query.q).slice(0,100)+'%')}for(const [key,col] of [['type','l.type'],['category','l.category_id'],['city','l.city_id']])if(req.query[key]){filters.push(`${col}=?`);vals.push(String(req.query[key]))}const page=Math.max(1,Math.min(10000,Number(req.query.page)||1));const limit=12;const sql=`SELECT l.*,u.name AS advertiser,c.name AS category,ci.name AS city,(SELECT image_url FROM listing_images WHERE listing_id=l.id ORDER BY sort_order,id LIMIT 1) AS image_url FROM listings l JOIN users u ON u.id=l.user_id JOIN categories c ON c.id=l.category_id JOIN cities ci ON ci.id=l.city_id WHERE ${filters.join(' AND ')} ORDER BY (l.featured_until>NOW()) DESC,l.created_at DESC LIMIT ${limit} OFFSET ${(page-1)*limit}`;res.json(await run(sql,vals))}));
+app.get('/api/listings',wrap(async(req,res)=>{
+  const filters=["l.status='published'","(l.expires_at IS NULL OR l.expires_at>NOW())"];
+  const values=[];
+  const query=String(req.query.q||'').trim().slice(0,100);
+  if(query){filters.push('(l.title LIKE ? OR l.description LIKE ?)');values.push(`%${query}%`,`%${query}%`)}
+  const listingType=String(req.query.type||'');
+  if(listingType&&Object.hasOwn({service:1,product:1,business:1,job:1,mission:1},listingType)){filters.push('l.type=?');values.push(listingType)}
+  const page=Math.max(1,Math.min(10000,Number(req.query.page)||1));
+  const limit=12;
+  const sql=`SELECT l.*,u.name AS advertiser,c.name AS category,ci.name AS city,(SELECT image_url FROM listing_images WHERE listing_id=l.id ORDER BY sort_order,id LIMIT 1) AS image_url FROM listings l JOIN users u ON u.id=l.user_id JOIN categories c ON c.id=l.category_id JOIN cities ci ON ci.id=l.city_id WHERE ${filters.join(' AND ')} ORDER BY (l.featured_until>NOW()) DESC,l.created_at DESC LIMIT ${limit} OFFSET ${(page-1)*limit}`;
+  res.json(await run(sql,values));
+}));
 app.get('/api/listings/:id',wrap(async(req,res)=>{const id=safeId(req.params.id);const rows=await run("SELECT l.*,u.name AS advertiser,c.name AS category,ci.name AS city FROM listings l JOIN users u ON u.id=l.user_id JOIN categories c ON c.id=l.category_id JOIN cities ci ON ci.id=l.city_id WHERE l.id=? AND l.status='published' AND (l.expires_at IS NULL OR l.expires_at>NOW())",[id]);if(!rows.length)return res.status(404).json({error:'Annonce introuvable'});await run('UPDATE listings SET views=views+1 WHERE id=?',[id]);rows[0].images=await run('SELECT image_url FROM listing_images WHERE listing_id=? ORDER BY sort_order,id',[id]);res.json(rows[0])}));
 app.get('/api/my/listings',auth,wrap(async(req,res)=>{const rows=await run('SELECT * FROM listings WHERE user_id=? ORDER BY created_at DESC',[req.user.id]);if(!rows.length)return res.json(rows);const ids=rows.map(row=>row.id);const images=await run(`SELECT listing_id,image_url FROM listing_images WHERE listing_id IN (${ids.map(()=>'?').join(',')}) ORDER BY sort_order,id`,ids);const byListing=new Map();for(const image of images){const current=byListing.get(image.listing_id)||[];current.push(image.image_url);byListing.set(image.listing_id,current)}res.json(rows.map(row=>({...row,image_urls:byListing.get(row.id)||[]})))}));
 app.post('/api/my/listings',auth,wrap(async(req,res)=>{const v=validate(listingSchema,req.body);const id=await createListing(req.user.id,v);res.status(201).json({id,status:'pending'})}));
@@ -71,12 +88,42 @@ const modules={categories:{table:'categories',fields:['name','slug','parent_id',
 modules.home_banners={table:'home_banners',fields:['title','description','image_url','cta_label','target_url','sort_order','active'],order:'sort_order,id'};
 const isSafePublicUrl=value=>!value||/^https?:\/\/\S+$/i.test(value)||(/^\/(?!\/)/.test(value)&&!value.includes('\\'))||/^#[\w-]+$/.test(value);
 const homeBannerSchema=z.object({title:z.string().trim().min(3).max(190),description:z.string().trim().min(10).max(2000),image_url:z.string().trim().max(1500).nullable().optional().refine(isSafePublicUrl,'URL d’image invalide'),cta_label:z.string().trim().min(2).max(80).default('Découvrir'),target_url:z.string().trim().max(1500).nullable().optional().refine(isSafePublicUrl,'Lien invalide'),sort_order:z.coerce.number().int().min(0).max(1000).default(0),active:z.boolean().default(true)});
-app.get('/api/admin/modules/:module',auth,moderator,wrap(async(req,res)=>{const m=modules[req.params.module];if(!m)return res.status(404).json({error:'Module inconnu'});if(req.user.role!=='admin'&&!['reports','messages'].includes(req.params.module))return res.status(403).json({error:'Permission insuffisante'});res.json(await run(`SELECT ${m.table==='users'?'id,name,email,phone,whatsapp,role,status,created_at':'*'} FROM ${m.table} ORDER BY ${m.order||`${m.pk||'id'} DESC`} LIMIT 300`))}));
+app.get('/api/admin/modules/:module',auth,moderator,wrap(async(req,res)=>{
+  const moduleName=req.params.module;
+  const m=modules[moduleName];
+  if(!m)return res.status(404).json({error:'Module inconnu'});
+  if(req.user.role!=='admin'&&!['reports','messages'].includes(moduleName))return res.status(403).json({error:'Permission insuffisante'});
+  if(moduleName==='reports')return res.json(await run('SELECT r.*,l.title AS listing_title,u.name AS reporter_name FROM reports r JOIN listings l ON l.id=r.listing_id LEFT JOIN users u ON u.id=r.reporter_id ORDER BY r.created_at DESC LIMIT 300'));
+  if(moduleName==='messages')return res.json(await run('SELECT m.*,u.name AS replied_by_name FROM contact_messages m LEFT JOIN users u ON u.id=m.replied_by ORDER BY m.created_at DESC LIMIT 300'));
+  res.json(await run(`SELECT ${m.table==='users'?'id,name,email,phone,whatsapp,role,status,created_at':'*'} FROM ${m.table} ORDER BY ${m.order||`${m.pk||'id'} DESC`} LIMIT 300`));
+}));
 app.post('/api/admin/modules/:module',auth,admin,wrap(async(req,res)=>{const m=modules[req.params.module];if(!m||m.readOnly)return res.status(405).json({error:'Création non permise'});const body=req.params.module==='home_banners'?validate(homeBannerSchema,req.body):req.body;const keys=m.fields.filter(k=>Object.hasOwn(body,k));if(!keys.length)return res.status(400).json({error:'Champs requis'});const r=await run(`INSERT INTO ${m.table}(${keys.join(',')}) VALUES(${keys.map(()=>'?').join(',')})`,keys.map(k=>body[k]??null));await audit(req.user.id,'create',m.table,r.insertId,req.params.module==='home_banners'?{title:body.title}:{});res.status(201).json({id:r.insertId})}));
-app.patch('/api/admin/modules/:module/:id',auth,admin,wrap(async(req,res)=>{const m=modules[req.params.module];if(!m)return res.status(404).json({error:'Module inconnu'});const id=safeId(req.params.id),body=req.params.module==='home_banners'?validate(homeBannerSchema,req.body):req.body,keys=m.fields.filter(k=>Object.hasOwn(body,k));if(!keys.length)return res.status(400).json({error:'Aucun champ valide'});if(req.params.module==='users' && Number(req.user.id)===id && (body.role&&body.role!=='admin'||body.status==='suspended'))return res.status(400).json({error:'Vous ne pouvez pas révoquer votre propre accès'});if(req.params.module==='payments'&&body.status==='verified'){keys.push('verified_by','verified_at');body.verified_by=req.user.id;body.verified_at=new Date()}const r=await run(`UPDATE ${m.table} SET ${keys.map(k=>`${k}=?`).join(',')} WHERE id=?`,[...keys.map(k=>body[k]??null),id]);await audit(req.user.id,'update',m.table,id,req.params.module==='home_banners'?{title:body.title}:body);res.json({ok:!!r.affectedRows})}));
+app.patch('/api/admin/modules/:module/:id',auth,moderator,wrap(async(req,res)=>{
+  const moduleName=req.params.module;
+  const m=modules[moduleName];
+  if(!m)return res.status(404).json({error:'Module inconnu'});
+  if(req.user.role!=='admin'&&!['reports','messages'].includes(moduleName))return res.status(403).json({error:'Permission insuffisante'});
+  const id=safeId(req.params.id);
+  const body=moduleName==='home_banners'?validate(homeBannerSchema,req.body):req.body;
+  const keys=m.fields.filter(k=>Object.hasOwn(body,k));
+  if(!keys.length)return res.status(400).json({error:'Aucun champ valide'});
+  if(moduleName==='users'&&Number(req.user.id)===id&&(body.role&&body.role!=='admin'||body.status==='suspended'))return res.status(400).json({error:'Vous ne pouvez pas révoquer votre propre accès'});
+  if(moduleName==='payments'&&body.status==='verified'){keys.push('verified_by','verified_at');body.verified_by=req.user.id;body.verified_at=new Date()}
+  const result=await run(`UPDATE ${m.table} SET ${keys.map(k=>`${k}=?`).join(',')} WHERE id=?`,[...keys.map(k=>body[k]??null),id]);
+  await audit(req.user.id,'update',m.table,id,moduleName==='home_banners'?{title:body.title}:body);
+  res.json({ok:!!result.affectedRows});
+}));
+app.post('/api/admin/messages/:id/reply',auth,moderator,wrap(async(req,res)=>{
+  const id=safeId(req.params.id);
+  const value=validate(z.object({reply:z.string().trim().min(2).max(5000)}),req.body);
+  const result=await run("UPDATE contact_messages SET admin_reply=?,replied_by=?,replied_at=NOW(),status='closed' WHERE id=?",[value.reply,req.user.id,id]);
+  if(!result.affectedRows)return res.status(404).json({error:'Message introuvable'});
+  await audit(req.user.id,'reply','contact_messages',id,{subject:(await run('SELECT subject FROM contact_messages WHERE id=?',[id]))[0]?.subject||''});
+  res.json({ok:true,status:'closed'});
+}));
 app.delete('/api/admin/modules/:module/:id',auth,admin,wrap(async(req,res)=>{const m=modules[req.params.module];if(!m||m.readOnly)return res.status(405).json({error:'Suppression non permise'});const id=safeId(req.params.id);await run(`DELETE FROM ${m.table} WHERE id=?`,[id]);await audit(req.user.id,'delete',m.table,id);res.json({ok:true})}));
-const auditActions={create:'Création',update:'Modification',delete:'Suppression',moderate:'Modération',verify:'Vérification'};
-const auditEntities={listings:'annonce',users:'utilisateur',promotions:'promotion',payments:'paiement',reports:'signalement',home_banners:'bannière',categories:'catégorie',cities:'ville',districts:'commune',promotion_plans:'formule',ad_campaigns:'campagne publicitaire',content_pages:'page',announcements:'communiqué',contact_messages:'message'};
+const auditActions={create:'Création',update:'Modification',delete:'Suppression',moderate:'Modération',verify:'Vérification',reply:'Réponse'};
+const auditEntities={listings:'annonce',users:'utilisateur',promotions:'promotion',payments:'paiement',reports:'signalement',home_banners:'bannière',categories:'catégorie',cities:'ville',districts:'commune',promotion_plans:'formule',ad_campaigns:'campagne publicitaire',content_pages:'page',announcements:'communiqué',contact_messages:'message de contact',app_settings:'paramètres du site'};
 const auditDetailLabels={title:'titre',email:'adresse e-mail',role:'rôle',status:'statut',listing_id:'annonce',plan_id:'formule',user_id:'utilisateur',amount:'montant',currency:'devise',reason:'motif'};
 const auditValue=value=>({published:'publiée',pending:'en attente',rejected:'rejetée',hidden:'masquée',active:'active',suspended:'suspendu',requested:'demandée',verified:'vérifié',resolved:'résolu',dismissed:'classé',admin:'administrateur',moderator:'modérateur',user:'utilisateur'}[value]||String(value));
 app.get('/api/admin/audit',auth,admin,wrap(async(req,res)=>{

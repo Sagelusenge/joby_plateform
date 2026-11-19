@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS home_banners (
  sort_order INT NOT NULL DEFAULT 0, active BOOLEAN NOT NULL DEFAULT TRUE,
  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-CREATE TABLE IF NOT EXISTS contact_messages (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(120) NOT NULL, email VARCHAR(190) NOT NULL, subject VARCHAR(190) NOT NULL, message TEXT NOT NULL, status ENUM('new','read','closed') NOT NULL DEFAULT 'new', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS contact_messages (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(120) NOT NULL, email VARCHAR(190) NOT NULL, subject VARCHAR(190) NOT NULL, message TEXT NOT NULL, admin_reply TEXT NULL, replied_by BIGINT UNSIGNED NULL, replied_at DATETIME NULL, status ENUM('new','read','closed') NOT NULL DEFAULT 'new', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(replied_by) REFERENCES users(id) ON DELETE SET NULL);
 CREATE TABLE IF NOT EXISTS notifications (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, user_id BIGINT UNSIGNED NOT NULL, title VARCHAR(190) NOT NULL, body TEXT, read_at DATETIME NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);
 CREATE TABLE IF NOT EXISTS app_settings (setting_key VARCHAR(120) PRIMARY KEY, setting_value TEXT, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS audit_logs (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, actor_id BIGINT UNSIGNED NULL, action VARCHAR(110) NOT NULL, entity VARCHAR(100) NOT NULL, entity_id BIGINT UNSIGNED NULL, details JSON NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(actor_id) REFERENCES users(id) ON DELETE SET NULL, INDEX idx_audit_time(created_at));
@@ -45,3 +45,6 @@ INSERT IGNORE INTO categories(id,name,slug) VALUES (1,'Services','services'),(2,
 INSERT IGNORE INTO promotion_plans(id,name,price,currency,duration_days) VALUES (1,'Mise en avant 7 jours',5,'USD',7),(2,'Mise en avant 30 jours',15,'USD',30);
 INSERT IGNORE INTO home_banners(id,title,description,cta_label,target_url,sort_order,active)
 VALUES (1,'Les opportunités de Goma, réunies au même endroit','Découvrez les services, produits et emplois près de chez vous avec Joby.','Explorer les annonces','#annonces',0,TRUE);
+INSERT IGNORE INTO app_settings(setting_key,setting_value) VALUES
+('site_name','Joby'),('site_tagline','Trouvez. Vendez. Connectez.'),('city_name','Goma, RD Congo'),
+('contact_email',''),('contact_phone',''),('contact_whatsapp','');
