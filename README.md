@@ -109,4 +109,4 @@ Ne jamais créer de compte administrateur avec un mot de passe prédéfini en co
 
 ## Licence
 
-Code fourni comme point de départ adaptable. Les maquettes Stitch et l'image de marque restent les éléments de référence du projet.
+Code fourni comme point de départ adaptable. Les maquettes Stitch et l'image de marque restent les éléments de référence du projet
